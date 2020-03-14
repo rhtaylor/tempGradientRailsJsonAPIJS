@@ -1,4 +1,5 @@
-Rails.application.routes.draw do
+Rails.application.routes.draw do 
+  root "cities#index"
   resources :city_temp_date_joins
   resources :temps
   resources :cities
