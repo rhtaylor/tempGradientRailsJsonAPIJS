@@ -1,0 +1,32 @@
+<%= form_with(model: city_temp_date_join, local: true) do |form| %>
+  <% if city_temp_date_join.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(city_temp_date_join.errors.count, "error") %> prohibited this city_temp_date_join from being saved:</h2>
+
+      <ul>
+        <% city_temp_date_join.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :day %>
+    <%= form.datetime_select :day %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city_id %>
+    <%= form.text_field :city_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :temp_id %>
+    <%= form.text_field :temp_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

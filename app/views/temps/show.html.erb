@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>High:</strong>
+  <%= @temp.high %>
+</p>
+
+<p>
+  <strong>Med:</strong>
+  <%= @temp.med %>
+</p>
+
+<p>
+  <strong>Low:</strong>
+  <%= @temp.low %>
+</p>
+
+<%= link_to 'Edit', edit_temp_path(@temp) %> |
+<%= link_to 'Back', temps_path %>

@@ -1,0 +1,32 @@
+<%= form_with(model: temp, local: true) do |form| %>
+  <% if temp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(temp.errors.count, "error") %> prohibited this temp from being saved:</h2>
+
+      <ul>
+        <% temp.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :high %>
+    <%= form.number_field :high %>
+  </div>
+
+  <div class="field">
+    <%= form.label :med %>
+    <%= form.number_field :med %>
+  </div>
+
+  <div class="field">
+    <%= form.label :low %>
+    <%= form.number_field :low %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
