@@ -8,7 +8,8 @@
 
 City.create([
     {name: "Phoenix", region: "southwest"}, 
-    {name: "Los&angeles", region: "west"}, 
+    {name: "Las&angeles", region: "west"},  
+            
     {name: "New&york", region: "east"}, 
     {name: "Orlando", region: "southeast"},
     {name: "Seattle", region: "northwest"}, 

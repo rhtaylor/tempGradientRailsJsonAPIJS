@@ -4,7 +4,8 @@ class CitiesController < ApplicationController
   # GET /cities
   # GET /cities.json
   def index
-    @cities = City.all 
+    @cities = City.all  
+    
    respond_to do |format|
     format.html
     format.json { render json: @cities}
