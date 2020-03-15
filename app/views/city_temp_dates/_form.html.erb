@@ -1,0 +1,32 @@
+<%= form_with(model: city_temp_date, local: true) do |form| %>
+  <% if city_temp_date.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(city_temp_date.errors.count, "error") %> prohibited this city_temp_date from being saved:</h2>
+
+      <ul>
+        <% city_temp_date.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.datetime_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cities_id %>
+    <%= form.text_field :cities_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :temps_id %>
+    <%= form.text_field :temps_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

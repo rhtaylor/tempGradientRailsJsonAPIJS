@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_14_180127) do
+ActiveRecord::Schema.define(version: 2020_03_15_202838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,14 +22,14 @@ ActiveRecord::Schema.define(version: 2020_03_14_180127) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "city_temp_date_joins", force: :cascade do |t|
-    t.datetime "day"
-    t.bigint "city_id", null: false
-    t.bigint "temp_id", null: false
+  create_table "city_temp_dates", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "cities_id", null: false
+    t.bigint "temps_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["city_id"], name: "index_city_temp_date_joins_on_city_id"
-    t.index ["temp_id"], name: "index_city_temp_date_joins_on_temp_id"
+    t.index ["cities_id"], name: "index_city_temp_dates_on_cities_id"
+    t.index ["temps_id"], name: "index_city_temp_dates_on_temps_id"
   end
 
   create_table "temps", force: :cascade do |t|
@@ -40,6 +40,6 @@ ActiveRecord::Schema.define(version: 2020_03_14_180127) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "city_temp_date_joins", "cities"
-  add_foreign_key "city_temp_date_joins", "temps"
+  add_foreign_key "city_temp_dates", "cities", column: "cities_id"
+  add_foreign_key "city_temp_dates", "temps", column: "temps_id"
 end

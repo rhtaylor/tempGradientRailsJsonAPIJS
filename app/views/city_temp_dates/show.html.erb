@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @city_temp_date.date %>
+</p>
+
+<p>
+  <strong>Cities:</strong>
+  <%= @city_temp_date.cities_id %>
+</p>
+
+<p>
+  <strong>Temps:</strong>
+  <%= @city_temp_date.temps_id %>
+</p>
+
+<%= link_to 'Edit', edit_city_temp_date_path(@city_temp_date) %> |
+<%= link_to 'Back', city_temp_dates_path %>
