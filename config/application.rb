@@ -8,7 +8,13 @@ Bundler.require(*Rails.groups)
 
 module TempGradientRailsJsonAPIJS
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
+    # Initialize configuration defaults for originally generated Rails version. 
+     config.middleware.insert_before 0, Rack::Cors do
+          allow do
+          origins '*'
+          resource '*', headers: :any, methods: [:get, :post]
+        end
+     end
     config.load_defaults 6.0
 
     # Settings in config/environments/* take precedence over those specified here.
