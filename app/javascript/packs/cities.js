@@ -1,32 +1,31 @@
 
-console.log("this is hooked in")
 document.addEventListener("DOMContentLoaded", function(event){
     getCityData()
 })
 
 const BASE_URL = "http://localhost:3000/cities.json" 
-
 function getCityData(){  
-    fetch(BASE_URL).then(function(res){ 
-        
-        return res.json() }).then(function(json){
-              
-            let cityArray = json.map(obj => obj.name); 
-            
+    fetch(BASE_URL).then( res => res.json() ).then(function(json){
+           let cityArray = json.map(obj => obj.name); 
            const cityObjArray = cityArray.map( city => new City(city));
            const fetchArray = cityObjArray.map( cityObj => cityObj.fetchURL);  
            debugger
-            let data = fetchArray.map( url => fetch(url).then(function(res){
-                 console.log(res.json())
-                return res.json() }) 
-            .then(function(data){ 
-                return data }) )
-           debugger 
-            } ).catch(function(){
+            let data = fetchArray.map(function(url){  
+                let rawUrl = url.replace(/['"]+/g, '');  
+                let better = "http://" + rawUrl
+                console.log(better) 
+                debugger
+                 fetch(better).then( res => res.json() ) 
+                .then(function(json){
+                debugger
+                })
+           .catch(function(){
                 console.log("ERROR")
-            }); 
-            
-    } 
+            });  
+        });
+    }) 
+}
+     
 
 class City {
     constructor(name){
