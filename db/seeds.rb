@@ -16,13 +16,4 @@ City.create([
     {name: "Las&vegas", region: "southwest"}
 ]); 
 
-Temp.create([ 
-    {high: 260 }, 
-    {med: 200 }, 
-    {high: 300}
-]) 
- 
-DateCityTemp.create([
-    { date: "03 15 2020".to_date, city_id: 1, temp_id: 1}, 
-    { date: "03 19 2020".to_date, city_id: 2, temp_id: 2 } 
- ] )
+

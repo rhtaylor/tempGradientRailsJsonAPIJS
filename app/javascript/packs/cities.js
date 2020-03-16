@@ -9,12 +9,12 @@ function getCityData(){
            let cityArray = json.map(obj => obj.name); 
            const cityObjArray = cityArray.map( city => new City(city));
            const fetchArray = cityObjArray.map( cityObj => cityObj.fetchURL);  
-           debugger
+           
             let data = fetchArray.map(function(url, i){  
                 let rawUrl = url.replace(/['"]+/g, '');  
                 let better = "http://" + rawUrl
                 console.log(better , i) 
-                debugger 
+                
                 let response = {} 
                 response[i] = better
                 return fetch(better).then( res => res.json() ) 
@@ -29,8 +29,7 @@ function getCityData(){
            console.log(data)
         });  
         //pass data to temp maker 
-        data.map( dataObj => new Temp(dataObj) ) ;
-        console.log(data)
+       debugger
     }) 
 }
      
@@ -48,4 +47,13 @@ class Temp {
     constructor(obj) {
         debugger
     }
-}
+} 
+//code to return value of temp from fetch promise 
+//fetch('http://api.openweathermap.org/data/2.5/weather?q=Las&vegas,us&APPID=fe2a775f427aa5fc92ce0379937b9ee9').then(function(res){ return res.json() }).then(function(val){ return val.main.temp }) 
+// temp_max
+//fetch('http://api.openweathermap.org/data/2.5/weather?q=Las&vegas,us&APPID=fe2a775f427aa5fc92ce0379937b9ee9').then(function(res){ return res.json() }).then(function(val){ return val.main.temp_max }) 
+// temp_min 
+//fetch('http://api.openweathermap.org/data/2.5/weather?q=Las&vegas,us&APPID=fe2a775f427aa5fc92ce0379937b9ee9').then(function(res){ return res.json() }).then(function(val){ return val.main.temp_min }) 
+//sunset 
+//fetch('http://api.openweathermap.org/data/2.5/weather?q=Las&vegas,us&APPID=fe2a775f427aa5fc92ce0379937b9ee9').then(function(res){ return res.json() }).then(function(val){ return val.sys.sunset })
+//convert sun set and rise The Current Unix Timestamp
