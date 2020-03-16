@@ -69,6 +69,6 @@ class CityTempDatesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def city_temp_date_params
-      params.require(:city_temp_date).permit(:date, :cities_id, :temps_id)
+      params.require(:city_temp_date).permit(:date, :city_id, :temp_id)
     end
 end

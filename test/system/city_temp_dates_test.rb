@@ -14,9 +14,9 @@ class CityTempDatesTest < ApplicationSystemTestCase
     visit city_temp_dates_url
     click_on "New City Temp Date"
 
-    fill_in "Cities", with: @city_temp_date.cities_id
+    fill_in "City", with: @city_temp_date.city_id
     fill_in "Date", with: @city_temp_date.date
-    fill_in "Temps", with: @city_temp_date.temps_id
+    fill_in "Temp", with: @city_temp_date.temp_id
     click_on "Create City temp date"
 
     assert_text "City temp date was successfully created"
@@ -27,9 +27,9 @@ class CityTempDatesTest < ApplicationSystemTestCase
     visit city_temp_dates_url
     click_on "Edit", match: :first
 
-    fill_in "Cities", with: @city_temp_date.cities_id
+    fill_in "City", with: @city_temp_date.city_id
     fill_in "Date", with: @city_temp_date.date
-    fill_in "Temps", with: @city_temp_date.temps_id
+    fill_in "Temp", with: @city_temp_date.temp_id
     click_on "Update City temp date"
 
     assert_text "City temp date was successfully updated"

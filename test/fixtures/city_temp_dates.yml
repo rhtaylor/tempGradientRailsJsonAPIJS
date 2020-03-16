@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  date: 2020-03-15 13:28:38
-  cities: one
-  temps: one
+  date: 2020-03-16 11:06:11
+  city: one
+  temp: one
 
 two:
-  date: 2020-03-15 13:28:38
-  cities: two
-  temps: two
+  date: 2020-03-16 11:06:11
+  city: two
+  temp: two
