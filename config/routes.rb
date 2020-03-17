@@ -1,4 +1,7 @@
-Rails.application.routes.draw do 
+Rails.application.routes.draw do  
+  get '/cities/:city_id/temp', to: 'temps#create'
+  post '/cities/:city_id/temp', to: 'temps#create' 
+
   resources :city_temp_dates
   resources :temps
   resources :cities

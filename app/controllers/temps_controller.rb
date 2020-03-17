@@ -1,5 +1,7 @@
-class TempsController < ApplicationController
+class TempsController < ApplicationController 
+  protect_from_forgery unless: -> { request.format.json? }
   before_action :set_temp, only: [:show, :edit, :update, :destroy]
+
 
   # GET /temps
   # GET /temps.json
@@ -14,23 +16,25 @@ class TempsController < ApplicationController
 
   # GET /temps/new
   def new 
-    binding.pry
-    @temp = Temp.new
+    @temp = Temp.new(temp_params)
+    binding.pry 
+    respond_to do |format|  
+      if @temp.new
+      format.json { redirect_to action: "create" }
+    end
   end
-
-  # GET /temps/1/edit
-  def edit
   end
 
   # POST /temps
   # POST /temps.json
-  def create
+  def create 
+    binding.pry
     @temp = Temp.new(temp_params)
 
     respond_to do |format|
       if @temp.save
         format.html { redirect_to @temp, notice: 'Temp was successfully created.' }
-        format.json { render :show, status: :created, location: @temp }
+        format.json { render json: @temp, status: :created }
       else
         format.html { render :new }
         format.json { render json: @temp.errors, status: :unprocessable_entity }
@@ -52,6 +56,9 @@ class TempsController < ApplicationController
     end
   end
 
+  # GET /temps/1/edit
+  def edit
+  end
   # DELETE /temps/1
   # DELETE /temps/1.json
   def destroy
