@@ -13,7 +13,8 @@ class TempsController < ApplicationController
   end
 
   # GET /temps/new
-  def new
+  def new 
+    binding.pry
     @temp = Temp.new
   end
 

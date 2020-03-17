@@ -13,7 +13,8 @@ class CitiesController < ApplicationController
   end
 
   # GET /cities/new
-  def new
+  def new 
+    binding.pry
     @city = City.new
   end
 
