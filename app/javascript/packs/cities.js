@@ -1,5 +1,4 @@
 const BASE_URL = "http://localhost:3000/cities.json"
-
 const POST_BASE_URL = "http://localhost:3000"
 
 document.addEventListener("DOMContentLoaded", function(event){ 
@@ -30,27 +29,37 @@ function getCityData(){
                    })
         
              });   
-
+ 
+    console.log(data)
     
-    let temps = data.map(function(obj, index){ 
-           
-        return   index = new Temp(obj)  
 
-        })
+          }); 
         
-        temps.map( (obj, i) => fetchPostRailsDB(obj, i) )
-    
-           }) 
-           return CITYIDSARRAY 
+           
         }
+ 
+        function postFetchVals(x,y, temps){  
+           
+            const table = document.getElementById("main"); 
+            const divy = document.createElement("div"); 
+            temps.map(function(val){ 
+                const hOne = document.createElement("h1");     
+                hOne.innerHTML = val 
+                divy.appendChild(hOne)  
+                debugger
+            }) 
+            table.appendChild(divy)
+            
 
+            debugger
+        } 
 class City {
-    constructor(name){
-        this.name = name,  
-        this.fetchURL = `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
-    }  
+    constructor(name) {
+        this.name = name,
+            this.fetchURL = `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
+    }
+}  
 
-} 
 class Temp {
     constructor(obj) { 
         this.date = new Date(),
@@ -79,4 +88,11 @@ fetch(post_URL, postObjOptions ).then(function(res){
      debugger
  })
 
+} 
+
+
+function promiseToDom(data) {
+    
+    
+     
 }

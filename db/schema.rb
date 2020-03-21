@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_180611) do
+ActiveRecord::Schema.define(version: 2020_03_21_003430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,24 +22,16 @@ ActiveRecord::Schema.define(version: 2020_03_16_180611) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "city_temp_dates", force: :cascade do |t|
-    t.datetime "date"
-    t.bigint "city_id", null: false
-    t.bigint "temp_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["city_id"], name: "index_city_temp_dates_on_city_id"
-    t.index ["temp_id"], name: "index_city_temp_dates_on_temp_id"
-  end
-
   create_table "temps", force: :cascade do |t|
-    t.integer "high"
-    t.integer "med"
-    t.integer "low"
+    t.datetime "date"
+    t.integer "temp_high"
+    t.integer "temp_mid"
+    t.integer "temp_low"
+    t.bigint "city_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_temps_on_city_id"
   end
 
-  add_foreign_key "city_temp_dates", "cities"
-  add_foreign_key "city_temp_dates", "temps"
+  add_foreign_key "temps", "cities"
 end

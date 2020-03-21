@@ -5,9 +5,11 @@
 <table>
   <thead>
     <tr>
-      <th>High</th>
-      <th>Med</th>
-      <th>Low</th>
+      <th>Date</th>
+      <th>Temp high</th>
+      <th>Temp mid</th>
+      <th>Temp low</th>
+      <th>City</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,9 +17,11 @@
   <tbody>
     <% @temps.each do |temp| %>
       <tr>
-        <td><%= temp.high %></td>
-        <td><%= temp.med %></td>
-        <td><%= temp.low %></td>
+        <td><%= temp.date %></td>
+        <td><%= temp.temp_high %></td>
+        <td><%= temp.temp_mid %></td>
+        <td><%= temp.temp_low %></td>
+        <td><%= temp.city_id %></td>
         <td><%= link_to 'Show', temp %></td>
         <td><%= link_to 'Edit', edit_temp_path(temp) %></td>
         <td><%= link_to 'Destroy', temp, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -12,18 +12,28 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :high %>
-    <%= form.number_field :high %>
+    <%= form.label :date %>
+    <%= form.datetime_select :date %>
   </div>
 
   <div class="field">
-    <%= form.label :med %>
-    <%= form.number_field :med %>
+    <%= form.label :temp_high %>
+    <%= form.number_field :temp_high %>
   </div>
 
   <div class="field">
-    <%= form.label :low %>
-    <%= form.number_field :low %>
+    <%= form.label :temp_mid %>
+    <%= form.number_field :temp_mid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :temp_low %>
+    <%= form.number_field :temp_low %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city_id %>
+    <%= form.text_field :city_id %>
   </div>
 
   <div class="actions">

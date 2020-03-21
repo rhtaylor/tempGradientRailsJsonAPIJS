@@ -9,11 +9,10 @@
 City.create([
     {name: "Phoenix", region: "southwest"}, 
     {name: "Las&angeles", region: "west"},  
-            
     {name: "New&york", region: "east"}, 
     {name: "Orlando", region: "southeast"},
     {name: "Seattle", region: "northwest"}, 
-    {name: "Las&vegas", region: "southwest"}
+    
 ]); 
 
 

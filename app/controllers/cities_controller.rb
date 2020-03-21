@@ -1,6 +1,6 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [:show, :edit, :update, :destroy]
- 
+
   # GET /cities
   # GET /cities.json
   def index
@@ -13,8 +13,7 @@ class CitiesController < ApplicationController
   end
 
   # GET /cities/new
-  def new 
-    binding.pry
+  def new
     @city = City.new
   end
 
@@ -24,7 +23,9 @@ class CitiesController < ApplicationController
 
   # POST /cities
   # POST /cities.json
-  def create
+  def create 
+
+    binding.pry
     @city = City.new(city_params)
 
     respond_to do |format|

@@ -12,7 +12,7 @@ module TempGradientRailsJsonAPIJS
      config.middleware.insert_before 0, Rack::Cors do
           allow do
           origins '*'
-          resource '*', headers: :any, methods: [:get, :post]
+          resource '*', headers: :any, methods: [:get, :post, :create]
         end
      end
     config.load_defaults 6.0

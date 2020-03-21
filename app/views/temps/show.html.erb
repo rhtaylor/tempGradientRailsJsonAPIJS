@@ -1,18 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>High:</strong>
-  <%= @temp.high %>
+  <strong>Date:</strong>
+  <%= @temp.date %>
 </p>
 
 <p>
-  <strong>Med:</strong>
-  <%= @temp.med %>
+  <strong>Temp high:</strong>
+  <%= @temp.temp_high %>
 </p>
 
 <p>
-  <strong>Low:</strong>
-  <%= @temp.low %>
+  <strong>Temp mid:</strong>
+  <%= @temp.temp_mid %>
+</p>
+
+<p>
+  <strong>Temp low:</strong>
+  <%= @temp.temp_low %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @temp.city_id %>
 </p>
 
 <%= link_to 'Edit', edit_temp_path(@temp) %> |

@@ -14,9 +14,11 @@ class TempsTest < ApplicationSystemTestCase
     visit temps_url
     click_on "New Temp"
 
-    fill_in "High", with: @temp.high
-    fill_in "Low", with: @temp.low
-    fill_in "Med", with: @temp.med
+    fill_in "City", with: @temp.city_id
+    fill_in "Date", with: @temp.date
+    fill_in "Temp high", with: @temp.temp_high
+    fill_in "Temp low", with: @temp.temp_low
+    fill_in "Temp mid", with: @temp.temp_mid
     click_on "Create Temp"
 
     assert_text "Temp was successfully created"
@@ -27,9 +29,11 @@ class TempsTest < ApplicationSystemTestCase
     visit temps_url
     click_on "Edit", match: :first
 
-    fill_in "High", with: @temp.high
-    fill_in "Low", with: @temp.low
-    fill_in "Med", with: @temp.med
+    fill_in "City", with: @temp.city_id
+    fill_in "Date", with: @temp.date
+    fill_in "Temp high", with: @temp.temp_high
+    fill_in "Temp low", with: @temp.temp_low
+    fill_in "Temp mid", with: @temp.temp_mid
     click_on "Update Temp"
 
     assert_text "Temp was successfully updated"

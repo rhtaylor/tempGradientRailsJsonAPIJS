@@ -17,7 +17,7 @@ class TempsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create temp" do
     assert_difference('Temp.count') do
-      post temps_url, params: { temp: { high: @temp.high, low: @temp.low, med: @temp.med } }
+      post temps_url, params: { temp: { city_id: @temp.city_id, date: @temp.date, temp_high: @temp.temp_high, temp_low: @temp.temp_low, temp_mid: @temp.temp_mid } }
     end
 
     assert_redirected_to temp_url(Temp.last)
@@ -34,7 +34,7 @@ class TempsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update temp" do
-    patch temp_url(@temp), params: { temp: { high: @temp.high, low: @temp.low, med: @temp.med } }
+    patch temp_url(@temp), params: { temp: { city_id: @temp.city_id, date: @temp.date, temp_high: @temp.temp_high, temp_low: @temp.temp_low, temp_mid: @temp.temp_mid } }
     assert_redirected_to temp_url(@temp)
   end
 

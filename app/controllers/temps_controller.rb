@@ -1,8 +1,6 @@
-class TempsController < ApplicationController 
-  protect_from_forgery unless: -> { request.format.json? }
+class TempsController < ApplicationController
   before_action :set_temp, only: [:show, :edit, :update, :destroy]
-
-
+  skip_before_action :verify_authenticity_token
   # GET /temps
   # GET /temps.json
   def index
@@ -16,27 +14,28 @@ class TempsController < ApplicationController
 
   # GET /temps/new
   def new 
-    @temp = Temp.new(temp_params)
-    binding.pry 
-    respond_to do |format|  
-      if @temp.new
-      format.json { redirect_to action: "create" }
-    end
+    binding.pry
+    @temp = Temp.new
   end
+
+  # GET /temps/1/edit
+  def edit
   end
 
   # POST /temps
   # POST /temps.json
   def create 
-    binding.pry
-    @temp = Temp.new(temp_params)
-
+    
+    params["city_id"] = params["id"];  
+   
+    @temp = Temp.create(temp_params)
+   binding.pry
     respond_to do |format|
       if @temp.save
-        format.html { redirect_to @temp, notice: 'Temp was successfully created.' }
-        format.json { render json: @temp, status: :created }
+        
+        format.json { render json: @temp, status: :created, location: @temp }
       else
-        format.html { render :new }
+        
         format.json { render json: @temp.errors, status: :unprocessable_entity }
       end
     end
@@ -56,9 +55,6 @@ class TempsController < ApplicationController
     end
   end
 
-  # GET /temps/1/edit
-  def edit
-  end
   # DELETE /temps/1
   # DELETE /temps/1.json
   def destroy
@@ -77,6 +73,6 @@ class TempsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def temp_params
-      params.require(:temp).permit(:high, :med, :low)
+      params.require(:temp).permit(:date, :temp_high, :temp_mid, :temp_low, :city_id, :id)
     end
 end

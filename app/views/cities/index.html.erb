@@ -1,9 +1,8 @@
-<%= javascript_pack_tag "cities" %>
 <p id="notice"><%= notice %></p>
 
 <h1>Cities</h1>
 
-<table>
+<table id="main">
   <thead>
     <tr>
       <th>Name</th>
@@ -28,3 +27,4 @@
 <br>
 
 <%= link_to 'New City', new_city_path %>
+<%= javascript_pack_tag "class_cities" %>

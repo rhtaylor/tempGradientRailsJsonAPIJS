@@ -1,11 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  high: 1
-  med: 1
-  low: 1
+  date: 2020-03-20 17:34:30
+  temp_high: 1
+  temp_mid: 1
+  temp_low: 1
+  city: one
 
 two:
-  high: 1
-  med: 1
-  low: 1
+  date: 2020-03-20 17:34:30
+  temp_high: 1
+  temp_mid: 1
+  temp_low: 1
+  city: two

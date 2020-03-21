@@ -1,5 +1,3 @@
-class Temps {
-    constructor(obj){
-        debugger
-    }
+function promisePending(){
+    debugger
 }
