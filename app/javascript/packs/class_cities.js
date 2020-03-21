@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function (event){
    Var = FetchData.fetchCityData()
     document.addEventListener("click", function(e){
         e.preventDefault() 
-        e.target.matches("#green") ? displayData() : console.log("oops");
+        e.target.matches("#green") ? postToDatabase() : console.log("Not Here");
     });  
 }); 
 
@@ -79,9 +79,11 @@ static postData(){
                 obj["city_id"] = cityObj.id 
                 fetchThis(obj)
                 return obj
-            }
+            } 
+            FetchData.collectionFromData = [] 
+
             function fetchThis(obj){  
-                debugger
+                
                 const postObjOptions = {
                     method: 'post',
                     credentials: 'same-origin',
@@ -90,21 +92,32 @@ static postData(){
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(obj)
-                } 
+                }
+                
         fetch(`${POST_BASE_URL + obj.id}/temps.json`, postObjOptions) 
                 .then(function (res) {
                     return res.json()
-                }).then(function (data) {
-                    debugger
-                })
-            } 
-    
-    })
-    }) 
-} 
+                }).then(function (data) { 
+                     
+                FetchData.fromMyDb = {}
+                    FetchData.fromMyDb["date"] = data.date, 
+                    FetchData.fromMyDb["high_temp"] = data.temp_max,
+                    FetchData.fromMyDb["low_temp"] = data.temp_low,
+                    FetchData.fromMyDb["sunSet"] = new Date(data.sunset * 1000)
+                    FetchData.collectionFromData.push(FetchData.fromMyDb)
+                    
+                    if (FetchData.Superresponse.length == FetchData.collectionFromData.length){ 
+                        debugger
+                        putInDom(collectionFromData)
+                    }
+                } ) 
+        } 
+}) 
 
+
+}) 
 }
- 
+} 
 
 class City {
     constructor(name, id){ 
@@ -123,21 +136,32 @@ button.setAttribute("id", "green");
     
 button.innerText = "Display DATA"
 root.appendChild(button)
-function displayData(){ 
+function postToDatabase(){  
+
     //save data to rails db with POST fetch()  
-    FetchData.postData(); 
-    //use data from current GET fetch()
-    FetchData.Superresponse.map(obj => { obj
-        const div = document.createElement("div");  
+    FetchData.postData();   
+    let pulledData = FetchData.fromMyDb 
+} 
+    
+
+    //use data from current GET fetch() 
+function putInDom( arg ){  
+    debugger
+        const div = document.createElement("div"); 
+        div.setAttribute("class", "greenfire")      
+     FetchData.Superresponse.map(obj => { obj 
+        const subDiv = document.createElement("subDiv");
+        subDiv.setAttribute("class", "redgreen");
         const newH = document.createElement("h1");
         const newerH = document.createElement("h2"); 
         newerH.innerText = obj.temp_high 
         const lowestH = document.createElement("h2"); 
         lowestH.innerText = obj.temp_low; 
         newH.innerText = obj.city;
-        div.appendChild(newH); 
-        div.appendChild(newerH);
-        div.appendChild(lowestH);
+        subDiv.appendChild(newH); 
+        subDiv.appendChild(newerH);
+        subDiv.appendChild(lowestH); 
+        div.appendChild(subDiv);
         root.appendChild(div);
     } )
     }

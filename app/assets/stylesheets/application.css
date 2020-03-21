@@ -12,4 +12,16 @@
  *
  *= require_tree .
  *= require_self
- */
+ */ 
+ .greenfire{ 
+    display: flex;
+    border: 15px solid green;
+    padding: 50px;
+    margin: 20px;
+
+ } 
+ .redgreen{
+     border: 7px solid orangered;
+     padding: 7px;
+     margin: 7px;
+ }
