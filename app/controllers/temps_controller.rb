@@ -29,7 +29,7 @@ class TempsController < ApplicationController
     params["city_id"] = params["id"];  
    
     @temp = Temp.create(temp_params)
-   binding.pry
+   
     respond_to do |format|
       if @temp.save
         
@@ -73,6 +73,6 @@ class TempsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def temp_params
-      params.require(:temp).permit(:date, :temp_high, :temp_mid, :temp_low, :city_id, :id)
+      params.require(:temp).permit(:date, :sunset, :temp_high, :temp_mid, :temp_low, :city_id, :id)
     end
 end

@@ -35,25 +35,27 @@ static fetchCityData(){
         return dataFromFetch = fetchURLArray.map(function (url, i) {
             let rawUrl = url.replace(/['"]+/g, '');
             let better = "http://" + rawUrl
-
+            console.log(better)
             const response = []
             //added to track the city of the data 
             //programmatically taking city names from this app API and turing them into fetchable
             //endpoints to the third party API
             response[i] = better 
-            debugger
+            
             return fetch(better).then(res => res.json())
                 .then(function (json) { 
-                    
+                    console.log(json)
                     dataObj = {} 
-                    dataObj["city"] = json.name
+                    dataObj["city"] = json.name 
+                    dataObj["sunset"] = json.sys.sunset
                     dataObj["temp_mid"] = json.main.temp
                     dataObj["temp_high"] = json.main.temp_max 
                     dataObj["temp_low"] = json.main.temp_min 
                     response["json"] = json 
                     response.push(dataObj) 
                     FetchData.Superresponse.push(dataObj) 
-                    //used to store promise data to let resolve 
+                    //used to store promise data to let resolve  
+                    console.log(dataObj)
                 return dataObj
                 })
                 
@@ -121,9 +123,10 @@ button.setAttribute("id", "green");
     
 button.innerText = "Display DATA"
 root.appendChild(button)
-function displayData(){  
+function displayData(){ 
+    //save data to rails db with POST fetch()  
     FetchData.postData(); 
-    debugger
+    //use data from current GET fetch()
     FetchData.Superresponse.map(obj => { obj
         const div = document.createElement("div");  
         const newH = document.createElement("h1");
