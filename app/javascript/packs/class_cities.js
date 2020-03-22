@@ -2,20 +2,31 @@ const BASE_URL = "http://localhost:3000/cities.json"
 const POST_BASE_URL = "http://localhost:3000/cities/"  
 
 document.addEventListener("DOMContentLoaded", function (event){
-   Var = FetchData.fetchCityData()
+    
+        timeoutcallback();
     document.addEventListener("click", function(e){
         e.preventDefault() 
         e.target.matches("#green") ? postToDatabase() : console.log("Not Here");
     });  
 }); 
 
+function timeoutcallback(){
+    setInterval(() => {
+        FetchData.fetchCityData()
+    }, 60000);
+}
+
 class FetchData {
     constructor(){
 
-    }
-static fetchCityData(){ 
-    console.log("im running") 
-    //fetch my API for city names to use for fetch to third party API
+    } 
+
+    //14,400,000 ms is 6 hours
+ static fetchCityData(){ 
+    console.log("im running")  
+    
+    //fetch my API for city names to use for fetch to third party API 
+
    return  fetch(BASE_URL).then(res => res.json()).then(function (json) { 
         
         const cityArray = json.map(obj => { 
@@ -55,7 +66,8 @@ static fetchCityData(){
                     response.push(dataObj) 
                     FetchData.Superresponse.push(dataObj) 
                     //used to store promise data to let resolve  
-                    console.log(dataObj)
+                    console.log(dataObj); 
+                    
                 return dataObj
                 })
                 
@@ -99,17 +111,18 @@ static postData(){
                     return res.json()
                 }).then(function (data) { 
                      
-                FetchData.fromMyDb = {}
+                FetchData.fromMyDb = {} 
+                    
                     FetchData.fromMyDb["date"] = data.date, 
-                    FetchData.fromMyDb["high_temp"] = data.temp_max,
+                    FetchData.fromMyDb["high_temp"] = data.temp_high,
                     FetchData.fromMyDb["low_temp"] = data.temp_low,
                     FetchData.fromMyDb["sunSet"] = new Date(data.sunset * 1000)
                     FetchData.collectionFromData.push(FetchData.fromMyDb)
                     
                     if (FetchData.Superresponse.length == FetchData.collectionFromData.length){ 
-                        debugger
-                        putInDom(collectionFromData)
-                    }
+                                putInDom();    
+                            return FetchData.fromMyDb 
+                               }
                 } ) 
         } 
 }) 
@@ -145,17 +158,17 @@ function postToDatabase(){
     
 
     //use data from current GET fetch() 
-function putInDom( arg ){  
-    debugger
+function putInDom(){  
+    
         const div = document.createElement("div"); 
         div.setAttribute("class", "greenfire")      
      FetchData.Superresponse.map(obj => { obj 
         const subDiv = document.createElement("subDiv");
         subDiv.setAttribute("class", "redgreen");
-        const newH = document.createElement("h1");
-        const newerH = document.createElement("h2"); 
+        const newH = document.createElement("h2");
+        const newerH = document.createElement("h3"); 
         newerH.innerText = obj.temp_high 
-        const lowestH = document.createElement("h2"); 
+        const lowestH = document.createElement("h3"); 
         lowestH.innerText = obj.temp_low; 
         newH.innerText = obj.city;
         subDiv.appendChild(newH); 
