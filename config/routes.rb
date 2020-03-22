@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :cities
   get '/cities/:city_id/temps', to: 'temps#create'
   post '/cities/:city_id/temps', to: 'temps#create' 
-  get '/cities/all/pastmidnight', to: 'temps#pastmidnight'
+  get '/cities/all/pastmidnight', to: 'temps#pastmidnight' 
+  get '/cities/:id/pastmidnight', to: 'temps#pastmidnightshow'
   root "cities#index"
   
   resources :cities do 

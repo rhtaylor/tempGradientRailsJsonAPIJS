@@ -69,6 +69,13 @@ class TempsController < ApplicationController
     @temps = Temp.where('EXTRACT(hour FROM created_at) BETWEEN ? AND ?', 0000, 0004)
     render json: @temps  
     
+  end 
+
+  def pastmidnightshow 
+    @city = City.find(params[:id]) 
+    @temps_early = @city.temps.where('EXTRACT(hour FROM created_at) BETWEEN ? AND ?', 0000, 0004).take(5) 
+    @temps_hot = @city.temps.order(:temp_high).take(5) 
+    binding.pry
   end
   private
     # Use callbacks to share common setup or constraints between actions.
