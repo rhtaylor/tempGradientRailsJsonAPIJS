@@ -64,7 +64,12 @@ class TempsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+ 
+  def pastmidnight 
+    @temps = Temp.where('EXTRACT(hour FROM created_at) BETWEEN ? AND ?', 0000, 0004)
+    render json: @temps  
+    
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_temp
