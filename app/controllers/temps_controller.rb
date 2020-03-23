@@ -82,11 +82,15 @@ class TempsController < ApplicationController
     
       @cities = City.all 
       @temps = @cities.map{ |city| city.temps }  
-    
+      
+      @overnight_temps = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '14 hour' ").take(10); 
+      
       @hot = @temps.map{ |temp|  temp.map{ |city_temp| city_temp.try(:temp_high) } }   
       @cool = @temps.map{ |temp| temp.order(created_at: :desc).limit(3) }  
-      binding.pry
-      render json: {HOTTEST: @hot, COOLEST: @cool }
+      
+      render json: TempSerializer.new(@overnight_temps).serialized_json 
     end
   private
     # Use callbacks to share common setup or constraints between actions.
