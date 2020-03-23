@@ -23,12 +23,20 @@ class FetchData {
     } 
 
     //Interval will be set to 14,400,000 ms in production which is 6 hours
- static fetchCityData(){ 
-    console.log("im running")  
-    
+ static fetchCityData(){   
+
+    const newDiv = document.createElement("div"); 
+    newDiv.setAttribute("id", "fetched")
+    const waiting = document.createElement("h2");  
+    waiting.setAttribute("id", "waiting")
+    waiting.innerText = "Fetching Weather Data" 
+    newDiv.appendChild(waiting);
     //fetch my API for city names to use for fetch to third party API 
 
    return  fetch(BASE_URL).then(res => res.json()).then(function (json) { 
+        
+            const root = document.getElementById("main"); 
+            root.appendChild(newDiv);
         
         const cityArray = json.map(obj => { 
           idName = {} 
@@ -143,13 +151,10 @@ class City {
 
 }  
 
-const root = document.getElementById("main");
+root = document.getElementById("main");
 const button = document.createElement("button");
 button.setAttribute("id", "green"); 
 button.setAttribute("class", "button")
-  
-            
-    
 button.innerText = "Display Current Temps"
 root.appendChild(button)
 function postToDatabase(){  
@@ -164,7 +169,10 @@ function postToDatabase(){
 function putInDom(){  
         const div = document.getElementById("greenfire") || document.createElement("div"); 
         div.setAttribute("id", "greenfire") 
+        newDiv = document.getElementById("fetched") 
         
+        waiting = document.getElementById("waiting") 
+        waiting.remove()
     FetchData.Superresponse.map(obj => { obj 
           
         const subDiv = document.getElementById(obj.city) || document.createElement("div");
@@ -185,7 +193,7 @@ function putInDom(){
         div.appendChild(subDiv);
     } ) 
    
-    root.appendChild(div);
+    newDiv.appendChild(div);
     }
 
 class Temp {
