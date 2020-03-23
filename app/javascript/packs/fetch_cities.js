@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         e.target.matches("#green") ? addData() : console.log("eh");
         
     });
-});
+}); 
+
+
 function addElesToDom(){
     const main = document.getElementById("main");
 
@@ -36,7 +38,7 @@ function fetchCityData(){
         });   
         updateTheDOM(dataFromFetch); 
         addData()
-        debugger
+       
     }); 
     
     
@@ -47,7 +49,9 @@ function addData(arg = []){
     console.log(datArray) 
     updateTheDOM(datArray)
 
-}
+} 
+
+
 
 function updateTheDOM(arg = []){ 
     const elementToAppend = document.getElementById("main");
@@ -58,7 +62,7 @@ function updateTheDOM(arg = []){
             const headder = document.createElement("th"); 
             headder.innerText = "City"; 
             const val = document.createElement("td");  
-            debugger 
+             
             
             headder.appendChild(val);
             elementToAppend.appendChild(headder)
@@ -76,7 +80,7 @@ function updateTheDOM(arg = []){
         }
 } 
 
-
+}
 
 class City{
     constructor(name){

@@ -73,10 +73,21 @@ class TempsController < ApplicationController
 
   def pastmidnightshow 
     @city = City.find(params[:id]) 
-    @temps_early = @city.temps.where('EXTRACT(hour FROM created_at) BETWEEN ? AND ?', 0000, 0004).take(5) 
-    @temps_hot = @city.temps.order(:temp_high).take(5) 
-    binding.pry
-  end
+    @temps_early = @city.temps.where('EXTRACT(hour FROM created_at) BETWEEN ? AND ?', 0000, 0004).take(3) 
+    @temps_hot = @city.temps.order(:temp_high).take(3)
+    render json: { early_morning: @temps_early, hot:  @temps_hot} 
+  end 
+
+    def diff 
+    
+      @cities = City.all 
+      @temps = @cities.map{ |city| city.temps }  
+    
+      @hot = @temps.map{ |temp|  temp.map{ |city_temp| city_temp.try(:temp_high) } }   
+      @cool = @temps.map{ |temp| temp.order(created_at: :desc).limit(3) }  
+      binding.pry
+      render json: {HOTTEST: @hot, COOLEST: @cool }
+    end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_temp

@@ -12,16 +12,47 @@
  *
  *= require_tree .
  *= require_self
- */ 
- .greenfire{ 
+ */  
+ 
+ #greenfire{   
+     
+    justify-content: center; 
+    align-self: center;
     display: flex;
-    border: 15px solid green;
+   
     padding: 50px;
     margin: 20px;
 
  } 
- .redgreen{
-     border: 7px solid orangered;
+ div{ 
+     flex-direction: row;  
+     align-self: center;
+     justify-content: space-between;
+     align-content: space-between;
+     border: 7px solid rgb(33, 114, 134);
      padding: 7px;
      margin: 7px;
  }
+ 
+
+
+ #main{    
+    flex-direction: column; 
+    background-color: rgb(253, 249, 243);
+    align-items: center;  
+    justify-content: space-between; 
+    border-radius: 25px;
+ 
+    padding: 20px;
+    
+  
+} 
+.button{ 
+    align-self: center  ;
+} 
+.white{
+    background-color: white; 
+    border-radius: 25px;
+ 
+    padding: 20px;
+}

@@ -1,27 +1,28 @@
 const BASE_URL = "http://localhost:3000/cities.json"
 const POST_BASE_URL = "http://localhost:3000/cities/"  
-
+const TEMP_URL = "http://localhost:3000/cities/temps/diff.json"
 document.addEventListener("DOMContentLoaded", function (event){
-    
-        timeoutcallback();
+        FetchData.fetchCityData();
+        //timeIntervalcallback();
     document.addEventListener("click", function(e){
         e.preventDefault() 
-        e.target.matches("#green") ? postToDatabase() : console.log("Not Here");
+        e.target.matches("#green") ? FetchData.postData() : console.log("Not Here"); 
+        e.target.matches("#button2") ? DiffInTemp.fetchTempDiff() : console.log("Try again");
     });  
 }); 
 
-function timeoutcallback(){
-    setInterval(() => {
-        FetchData.fetchCityData()
-    }, 60000);
-}
+// function timeIntervalcallback(){
+//     setInterval(() => {
+//         FetchData.fetchCityData()
+//     }, 90000000);
+// }
 
 class FetchData {
     constructor(){
 
     } 
 
-    //14,400,000 ms is 6 hours
+    //Interval will be set to 14,400,000 ms in production which is 6 hours
  static fetchCityData(){ 
     console.log("im running")  
     
@@ -80,8 +81,9 @@ class FetchData {
     
 }
 static postData(){ 
-        
-    this.Superresponse.map(obj =>{  
+       
+    this.Superresponse.map(obj =>{   
+        console.log(new Date().toTimeString().split(" ")[0] , obj)
          FetchData.cityObjArray.map( cityObj => {  
              
             
@@ -143,11 +145,12 @@ class City {
 
 const root = document.getElementById("main");
 const button = document.createElement("button");
-button.setAttribute("id", "green");
+button.setAttribute("id", "green"); 
+button.setAttribute("class", "button")
   
             
     
-button.innerText = "Display DATA"
+button.innerText = "Display Current Temps"
 root.appendChild(button)
 function postToDatabase(){  
 
@@ -159,24 +162,30 @@ function postToDatabase(){
 
     //use data from current GET fetch() 
 function putInDom(){  
-    
-        const div = document.createElement("div"); 
-        div.setAttribute("class", "greenfire")      
-     FetchData.Superresponse.map(obj => { obj 
-        const subDiv = document.createElement("subDiv");
-        subDiv.setAttribute("class", "redgreen");
-        const newH = document.createElement("h2");
-        const newerH = document.createElement("h3"); 
+        const div = document.getElementById("greenfire") || document.createElement("div"); 
+        div.setAttribute("id", "greenfire") 
+        
+    FetchData.Superresponse.map(obj => { obj 
+          
+        const subDiv = document.getElementById(obj.city) || document.createElement("div");
+        subDiv.setAttribute("id", obj.city);
+        subDiv.setAttribute("class", "white")
+        const newH = document.getElementById("newH") || document.createElement("h2"); 
+        newH.setAttribute("id", "newH"); 
+        const newerH = document.getElementById("newerH") || document.createElement("h3");
+        newerH.setAttribute("id", "newerH");  
+        const lowestH = document.getElementById("lowestH") || document.createElement("h3");
+        lowestH.setAttribute("id", "lowestH"); 
         newerH.innerText = obj.temp_high 
-        const lowestH = document.createElement("h3"); 
-        lowestH.innerText = obj.temp_low; 
+        lowestH.innerText = obj.temp_low;  
         newH.innerText = obj.city;
         subDiv.appendChild(newH); 
         subDiv.appendChild(newerH);
         subDiv.appendChild(lowestH); 
         div.appendChild(subDiv);
-        root.appendChild(div);
-    } )
+    } ) 
+   
+    root.appendChild(div);
     }
 
 class Temp {
@@ -185,4 +194,30 @@ class Temp {
             this.high = obj.then(res => res.main.temp_max),
             this.low = obj.then(res => res.main.temp_min)
     }
-} 
+}  
+
+const button2 = document.createElement("button");
+button2.innerText = "Display Temps Diff";
+button2.setAttribute("id", "button2"); 
+button2.setAttribute("class", "button")
+root.appendChild(button2); 
+
+
+
+class DiffInTemp {
+    constructor(){
+
+    } 
+
+static fetchTempDiff(){
+    fetch(TEMP_URL).then(res => res.json()).then(function(data){ 
+        
+        keys = Object.keys(data) 
+        useableData = keys.map( key => data[key] )
+        debugger
+        FetchData.Superresponse = useableData
+        putInDom()   
+    });
+}
+
+}

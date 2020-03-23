@@ -1,6 +1,7 @@
 Rails.application.routes.draw do  
   resources :temps
-  resources :cities
+  resources :cities 
+  get "/cities/temps/diff.json", to: 'temps#diff'
   get '/cities/:city_id/temps', to: 'temps#create'
   post '/cities/:city_id/temps', to: 'temps#create' 
   get '/cities/all/pastmidnight', to: 'temps#pastmidnight' 
