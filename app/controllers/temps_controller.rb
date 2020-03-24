@@ -85,12 +85,21 @@ class TempsController < ApplicationController
       
       @overnight_temps = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '14 hour' ").take(10); 
-      
-      @hot = @temps.map{ |temp|  temp.map{ |city_temp| city_temp.try(:temp_high) } }   
-      @cool = @temps.map{ |temp| temp.order(created_at: :desc).limit(3) }  
-      
-      render json: TempSerializer.new(@overnight_temps).serialized_json 
+            date_trunc('day', created_at) + interval '1 day' - interval '10 hour' ").take(5); 
+       
+       @high_temps = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '4 hour' ").take(5);  
+        @test = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '10 hour' AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '4 hour' ").take(5);  
+        @test2 = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '3 hour' ").take(5); 
+            
+       #@test = TempSerializer.new(@high_temps).serialized_json 
+      binding.pry
+      render json: { ONE: TempSerializer.new(@overnight_temps).serialized_json,  TWO: TempSerializer.new(@high_temps).serialized_json}  
     end
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -217,15 +217,29 @@ class DiffInTemp {
 
     } 
 
-static fetchTempDiff(){
+static fetchTempDiff(){ 
+    //fetching This Apps rails json API
     fetch(TEMP_URL).then(res => res.json()).then(function(data){ 
         
         keys = Object.keys(data) 
         useableData = keys.map( key => data[key] )
-        debugger
         FetchData.Superresponse = useableData
-        putInDom()   
+        DOMWorker.goodData(useableData)   
     });
 }
+
+} 
+
+class DOMWorker{ 
+    constructor(){ 
+
+    } 
+static goodData(arg){ 
+    
+    debugger
+const targetDiv = document.getElementById("fetched"); 
+
+}  
+
 
 }
