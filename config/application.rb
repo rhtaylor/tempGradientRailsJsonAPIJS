@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module TempGradientRailsJsonAPIJS
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.  
-     config.time_zone = 'MST'
+     config.time_zone = 'Arizona'
      config.middleware.insert_before 0, Rack::Cors do
           allow do
           origins '*'

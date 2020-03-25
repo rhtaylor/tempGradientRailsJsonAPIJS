@@ -92,7 +92,7 @@ static postData(){
        
     this.Superresponse.map(obj =>{   
         console.log(new Date().toTimeString().split(" ")[0] , obj)
-         FetchData.cityObjArray.map( cityObj => {  
+           FetchData.cityObjArray.map( cityObj => {  
              
             
              if (cityObj.name.match(obj.city)){  
@@ -220,7 +220,7 @@ class DiffInTemp {
 static fetchTempDiff(){ 
     //fetching This Apps rails json API
     fetch(TEMP_URL).then(res => res.json()).then(function(data){ 
-        
+        debugger
         keys = Object.keys(data) 
         useableData = keys.map( key => data[key] )
         FetchData.Superresponse = useableData
