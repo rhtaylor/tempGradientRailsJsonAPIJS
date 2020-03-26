@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.addEventListener("click", function (e) {
         e.preventDefault()
       e.target.matches("#green") ? FetchData.postData() : console.log("Not Here");
-      //  e.target.matches("#button2") ? DiffInTemp.fetchTempDiff() : console.log("Try again");
+      e.target.matches("#button2") ? DiffCalc.fetchTempDiff() : console.log("Try again");
       e.target.matches("#about") ? DOMWorker.about() : console.log("not here either");
     });
 }); 
@@ -233,4 +233,24 @@ class City {
         this.fetchURL = `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
     }
 
-}  
+}   
+
+class DiffCalc {
+    constructor(){}
+    static fetchTempDiff() { 
+        
+        //fetching This Apps rails json API
+        fetch(TEMP_URL).then(res => res.json()).then(function (data) {
+
+            keys = Object.keys(data)
+            useableData = keys.map(key => data[key]) 
+            
+            DiffCalc.calculatedData(useableData)
+        });
+    } 
+
+    static calculatedData(arg){
+        debugger
+    }
+
+}
