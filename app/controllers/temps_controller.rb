@@ -96,11 +96,11 @@ class TempsController < ApplicationController
         @test2 = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
             date_trunc('day', created_at) + interval '1 day' - interval '3 hour' ").take(5); 
-            
+         @created_at = Temp.last.created_at   
        #@test = TempSerializer.new(@high_temps).serialized_json 
       #render json: { OVERNIGHT: @overnight_temps, HOT: @high_temps, TEST: @test, TEST2: @test2}
-      render json: TempSerializer.new(@overnight_temps).serialized_json # TempSerializer.new(@high_temps).serialized_json ]
-
+      render json: { "Late": TempSerializer.new(@overnight_temps).serialized_json,  "HOT": TempSerializer.new(@high_temps).serialized_json }
+     
     end
   private
     # Use callbacks to share common setup or constraints between actions.

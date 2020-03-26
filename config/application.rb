@@ -15,7 +15,7 @@ module TempGradientRailsJsonAPIJS
           origins '*'
           resource '*', headers: :any, methods: [:get, :post, :create]
         end
-     end
+     end                                     
     config.load_defaults 6.0
 
     # Settings in config/environments/* take precedence over those specified here.

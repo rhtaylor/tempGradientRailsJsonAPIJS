@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function (event){
     document.addEventListener("click", function(e){
         e.preventDefault() 
         e.target.matches("#green") ? FetchData.postData() : console.log("Not Here"); 
-        e.target.matches("#button2") ? DiffInTemp.fetchTempDiff() : console.log("Try again");
+        e.target.matches("#button2") ? DiffInTemp.fetchTempDiff() : console.log("Try again"); 
+        e.target.matches("#about") ? DOMWorker.about() : console.log("not here either");
     });  
 }); 
 
@@ -152,11 +153,16 @@ class City {
 }  
 
 root = document.getElementById("main");
-const button = document.createElement("button");
+const button = document.createElement("button"); 
+const aboutButton = document.createElement("button");
+aboutButton.innerText = "About"; 
+aboutButton.setAttribute("id", "about");
 button.setAttribute("id", "green"); 
 button.setAttribute("class", "button")
-button.innerText = "Display Current Temps"
-root.appendChild(button)
+button.innerText = "Display Current Temps" 
+root.appendChild(aboutButton);
+root.appendChild(button) 
+
 function postToDatabase(){  
 
     //save data to rails db with POST fetch()  
@@ -220,11 +226,10 @@ class DiffInTemp {
 static fetchTempDiff(){ 
     //fetching This Apps rails json API
     fetch(TEMP_URL).then(res => res.json()).then(function(data){ 
-        debugger
+        
         keys = Object.keys(data) 
         useableData = keys.map( key => data[key] )
-        FetchData.Superresponse = useableData
-        DOMWorker.goodData(useableData)   
+        DOMWorker.goodData(data)   
     });
 }
 
@@ -232,13 +237,50 @@ static fetchTempDiff(){
 
 class DOMWorker{ 
     constructor(){ 
-
-    } 
+        debugger
+    }  
+static about(){
+    const about = document.createElement("h1");
+    about.innerText = "About"; 
+    const p = document.createElement("p");  
+    const p2 = document.createElement("p"); 
+    const p3 = document.createElement("p"); 
+    const p4 = document.createElement("p"); 
+    const p5 = document.createElement("p");
+    const p6 = document.createElement("p"); 
+    p.innerText = "Boiling Forest is brought to you from the mind of a conscientious citizen."  
+    p2.innerText = "Randall Taylor graduated from the University of Arizona with  BS in Physiology, minor in Biochemistry,"
+    p3.innerText =  "and second minor in business administration. With a strong interest in science he always had a full " 
+    p4.innerText = "mind of scientific and engineering ideas. For example he crafted something called a Potential Energy Pendulum" 
+    p5.innerText = "which has valid physics behind the idea. This PEP would in effect create a clean source of a natural gas from water" 
+    p6.innerText = "with minor drawbacks." 
+    const abstract = document.createElement("h2"); 
+    abstract.innerText = "ABSTRACT:"
+    const p7 = document.createElement("p");
+    p7.innerText =  "Global warming is largely considered fact in the scientific community.The pumping of CO2 into the air by way of capitalistic" 
+    const p8 = document.createElement("p")
+    p8.innerText = "societies have given rise to a blanket of gas.This gas traps radiation from the sun and hold onto that energy longer.It should be shown"
+    const p9 = document.createElement("p")
+    p9.innerText =  "that the earth takes longer to cool after the sun has set over time.This application aims to track this temperature to ascertain if and to what degree this is happening."
+    about.appendChild(p); 
+    about.appendChild(p2);
+    about.appendChild(p3);
+    about.appendChild(p4); 
+    about.appendChild(p5);
+    about.appendChild(p6);
+    about.appendChild(abstract)
+    about.appendChild(p7);
+    about.appendChild(p8);
+    about.appendChild(p9);
+    main.appendChild(about); 
+}
 static goodData(arg){ 
-    
-    debugger
-const targetDiv = document.getElementById("fetched"); 
-
+const targetDiv = document.getElementById("fetched");  
+const newDiv = document.createElement("div")
+const h1 = document.createElement("h1");
+h1.innerText = "About"; 
+newDiv.appendChild(h1);
+targetDiv.appendChild(newDiv)
 }  
 
 
