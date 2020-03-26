@@ -3,7 +3,7 @@ const POST_BASE_URL = "http://localhost:3000/cities/"
 const TEMP_URL = "http://localhost:3000/cities/temps/diff.json"
 document.addEventListener("DOMContentLoaded", function (event){
         FetchData.fetchCityData();
-        //timeIntervalcallback();
+         //timeIntervalcallback();
     document.addEventListener("click", function(e){
         e.preventDefault() 
         e.target.matches("#green") ? FetchData.postData() : console.log("Not Here"); 
@@ -26,7 +26,7 @@ class FetchData {
     //Interval will be set to 14,400,000 ms in production which is 6 hours
  static fetchCityData(){   
 
-    const newDiv = document.createElement("div"); 
+    const newDiv = document.getElementById("fetched") || document.createElement("div"); 
     newDiv.setAttribute("id", "fetched")
     const waiting = document.createElement("h2");  
     waiting.setAttribute("id", "waiting")
@@ -174,7 +174,8 @@ function postToDatabase(){
     //use data from current GET fetch() 
 function putInDom(){  
         const div = document.getElementById("greenfire") || document.createElement("div"); 
-        div.setAttribute("id", "greenfire") 
+        div.setAttribute("id", "greenfire")  
+        
         newDiv = document.getElementById("fetched") 
         
         waiting = document.getElementById("waiting") 
@@ -240,7 +241,7 @@ class DOMWorker{
         debugger
     }  
 static about(){
-    const about = document.createElement("h1");
+    const about = document.getElementById("fetched") || document.createElement("div");
     about.innerText = "About"; 
     const p = document.createElement("p");  
     const p2 = document.createElement("p"); 
@@ -274,13 +275,15 @@ static about(){
     about.appendChild(p9);
     main.appendChild(about); 
 }
-static goodData(arg){ 
-const targetDiv = document.getElementById("fetched");  
-const newDiv = document.createElement("div")
-const h1 = document.createElement("h1");
-h1.innerText = "About"; 
-newDiv.appendChild(h1);
-targetDiv.appendChild(newDiv)
+static goodData(arg){  
+    const targetDiv = document.getElementById("fetched");   
+
+    const newDiv = document.getElementById("fetched") || document.createElement("div")
+    const h1 = document.createElement("h1");
+    h1.innerText = "About"; 
+    newDiv.appendChild(h1);  
+    main.appendChild(newDiv);
+//targetDiv.appendChild(newDiv)
 }  
 
 
