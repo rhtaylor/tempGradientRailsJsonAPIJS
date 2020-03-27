@@ -2,7 +2,11 @@ class TempSerializer
   include FastJsonapi::ObjectSerializer 
   set_key_transform :camel
   attributes :temp_high, :temp_mid, :temp_low, :date, :sunset, :created_at  
-  set_id :city_id  
+  set_id :city_id   
+  attributes :human_readable_sunset do |temp|   
+    Time.at(temp.sunset)
+    
+  end
   attributes :HourOfDay do |temp| 
     temp.created_at.hour
   end 

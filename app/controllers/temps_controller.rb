@@ -81,13 +81,13 @@ class TempsController < ApplicationController
     def diff 
     
       @cities = City.all 
-      @temps = @cities.map{ |city| city.temps }  
-      
+      @temps = @cities.map{ |city| city.temps }   
+
+  
       @overnight_temps = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
             date_trunc('day', created_at) + interval '1 day' - interval '10 hour' ").take(5); 
-       
-       @high_temps = Temp.where("created_at BETWEEN 
+      @high_temps = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
             date_trunc('day', created_at) + interval '1 day' - interval '4 hour' ").take(5);  
         @test = Temp.where("created_at BETWEEN 
