@@ -29,7 +29,7 @@ class TempsController < ApplicationController
     params["city_id"] = params["id"];  
    
     @temp = Temp.create(temp_params)
-   
+   binding.pry
     respond_to do |format|
       if @temp.save
         
@@ -79,28 +79,24 @@ class TempsController < ApplicationController
   end 
 
     def diff 
-    
       @cities = City.all 
       @temps = @cities.map{ |city| city.temps }   
 
   
       @overnight_temps = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '10 hour' ").take(5); 
+            date_trunc('day', created_at) + interval '1 day' - interval '18 hour' ").take(5);  
+      @after_sunset = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '8 hour' AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '6 hour' ").last(8); 
       @high_temps = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
             date_trunc('day', created_at) + interval '1 day' - interval '4 hour' ").take(5);  
-        @test = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '1 day' - interval '10 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '4 hour' ").take(5);  
-        @test2 = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '3 hour' ").take(5); 
-         @created_at = Temp.last.created_at   
+   #   @created_at = Temp.last.created_at   
        #@test = TempSerializer.new(@high_temps).serialized_json 
       #render json: { OVERNIGHT: @overnight_temps, HOT: @high_temps, TEST: @test, TEST2: @test2}
-      render json: { "Late": TempSerializer.new(@overnight_temps).serialized_json,  "HOT": TempSerializer.new(@high_temps).serialized_json }
-     
+      #render json: { "AFTER_SET": TempSerializer.new(@after_sunset).serialized_json, "MidnightPlus": TempSerializer.new(@overnight_temps).serialized_json,  "HOTTEST": TempSerializer.new(@high_temps).serialized_json }
+      render json: TempSerializer.new(@after_sunset).serialized_json
     end
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -110,6 +106,6 @@ class TempsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def temp_params
-      params.require(:temp).permit(:date, :sunset, :temp_high, :temp_mid, :temp_low, :city_id, :id)
+      params.require(:temp).permit(:date, :sunset, :temp, :temp_high, :temp_mid, :temp_low, :city_id, :id)
     end
 end

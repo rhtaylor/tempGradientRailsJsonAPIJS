@@ -118,7 +118,7 @@ class FetchData {
         //fetch my API for city names to use for fetch to third party API 
 
         return fetch(BASE_URL).then(res => res.json()).then(function (json) {
-    
+            
             const root = document.getElementById("main");
             root.appendChild(newDiv);
 
@@ -150,7 +150,8 @@ class FetchData {
                     .then(function (json) {
                         console.log(json)
                         dataObj = {}
-                        dataObj["city"] = json.name
+                        dataObj["city"] = json.name 
+                        dataObj["current_temp"] = json.main.temp
                         dataObj["sunset"] = json.sys.sunset
                         dataObj["temp_mid"] = json.main.temp
                         dataObj["temp_high"] = json.main.temp_max
@@ -182,14 +183,18 @@ class FetchData {
                 if (cityObj.name.match(obj.city)) {
                     obj["date"] = new Date()
                     obj["fetchURL"] = cityObj.fetchURL
-                    obj["city_id"] = cityObj.id
-                    fetchThis(obj)
+                    obj["city_id"] = cityObj.id  
+                    let date = new Date(obj.sunset * 1000)
+                   let x = parseInt(date); 
+                    debugger
+                    fetchThis(obj) 
+                    
                     return obj
                 }
                 FetchData.collectionFromData = []
 
                 function fetchThis(obj) {
-
+                    debugger
                     const postObjOptions = {
                         method: 'post',
                         credentials: 'same-origin',
@@ -253,4 +258,7 @@ class DiffCalc {
         debugger
     }
 
-}
+} 
+
+//this is an epoc converter
+//new Date(obj.sunset * 1000)
