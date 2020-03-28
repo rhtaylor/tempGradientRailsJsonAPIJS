@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_191541) do
+ActiveRecord::Schema.define(version: 2020_03_28_074308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_191541) do
     t.integer "sunset"
     t.integer "temp"
     t.integer "current_temp"
+    t.datetime "sunset_datetime"
     t.index ["city_id"], name: "index_temps_on_city_id"
   end
 

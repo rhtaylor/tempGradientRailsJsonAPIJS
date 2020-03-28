@@ -184,10 +184,9 @@ class FetchData {
                     obj["date"] = new Date()
                     obj["fetchURL"] = cityObj.fetchURL
                     obj["city_id"] = cityObj.id  
-                    let date = new Date(obj.sunset * 1000)
-                   let x = parseInt(date); 
+                    obj["sunset_datetime"] = new Date(obj.sunset * 1000) 
                     debugger
-                    fetchThis(obj) 
+                   fetchThis(obj) 
                     
                     return obj
                 }
