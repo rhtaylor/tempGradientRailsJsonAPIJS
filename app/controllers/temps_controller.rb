@@ -29,7 +29,7 @@ class TempsController < ApplicationController
     params["city_id"] = params["id"];  
    
     @temp = Temp.create(temp_params)
-   binding.pry
+   
     respond_to do |format|
       if @temp.save
         

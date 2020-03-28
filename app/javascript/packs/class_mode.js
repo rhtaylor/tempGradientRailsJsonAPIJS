@@ -185,7 +185,7 @@ class FetchData {
                     obj["fetchURL"] = cityObj.fetchURL
                     obj["city_id"] = cityObj.id  
                     obj["sunset_datetime"] = new Date(obj.sunset * 1000) 
-                    debugger
+                    
                    fetchThis(obj) 
                     
                     return obj
