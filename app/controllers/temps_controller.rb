@@ -115,13 +115,13 @@ class TempsController < ApplicationController
       end 
       
       @abc = @master_array.sort{ |a,b| a["temp_city"][0] <=> b["temp_city"][0] }  
-      binding.pry
+     
       @data_array = []
       @abc.map do |objectday| 
         @abc.map do |objectnight|  
           #objectday and objectnight are criss crossing and mixing up. 
           if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] < 0 ) 
-            binding.pry
+           
             data_obj = {}
             data_obj["city"] = objectday["temp_city"] 
             data_obj["city_id"] = objectday["city_id"]
@@ -141,14 +141,11 @@ class TempsController < ApplicationController
         end
         
       end 
-      binding.pry
-       @x =  TempSerializer.new(@afternoon).serialized_json 
-       @y =  TempSerializer.new(@overnight).serialized_json 
-      
       
       binding.pry
-         
-       render json: [ @afternoon, @overnight ]
+      
+     x = @data_array.map{ |hash| GlobalWarming.new(hash) }
+      binding.pry
     end
   private
     # Use callbacks to share common setup or constraints between actions.
