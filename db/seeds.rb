@@ -15,11 +15,7 @@ City.create([
     
 ]);  
 
-Temp.create([
-{date:  "2020-03-22 21:40:56", temp_high: 300, temp_mid: 200, temp_low: 100, city_id: 5, sunset: 1684920275 },
-{date:  "2020-03-22 21:40:56", temp_high: 200, temp_mid: 100, temp_low: 60, city_id: 3, sunset: 1984920275 },
-{date:  "2020-03-22 21:40:56", temp_high: 100, temp_mid: 90, temp_low: 50, city_id: 4, sunset: 1784920275 }
-]);
+
  
 
 

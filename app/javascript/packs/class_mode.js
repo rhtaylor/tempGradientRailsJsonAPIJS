@@ -51,7 +51,8 @@ class DOMWorker {
         about.appendChild(p9);
         main.appendChild(about);
     }
-static buildDOM(){ 
+static buildDOM(){  
+    console.log("buildDOM is running")
     const main = document.getElementById("main"); 
     const newDiv = document.getElementById("fetched") || document.createElement("div");
     newDiv.setAttribute("id", "fetched"); 
@@ -111,7 +112,7 @@ class FetchData {
 
     //Interval will be set to 14,400,000 ms in production which is 6 hours
     static fetchCityData() {
-
+        console.log("fetching data")
         const newDiv = document.getElementById("fetched") || document.createElement("div");
         newDiv.setAttribute("id", "fetched")
         

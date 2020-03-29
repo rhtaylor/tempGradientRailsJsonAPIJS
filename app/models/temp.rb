@@ -6,7 +6,8 @@ class Temp < ApplicationRecord
   end 
   def temp_diff 
     self.temp_high - self.temp_low
-  end 
+  end  
+
   def self.overnight 
     @overnight_temps = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
@@ -15,9 +16,11 @@ class Temp < ApplicationRecord
  
   def sunset_hour 
     Time.at(self.sunset).to_s.match(/\d{2}:/)  
-  end
+  end 
+
   def self.csv 
     csv = self.overnight.map{ |temp| "#{temp.created_at},  #{temp.temp_high}, #{temp.temp_low}" }
-  end 
+  end  
+
 
 end

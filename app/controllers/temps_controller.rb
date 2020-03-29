@@ -81,22 +81,67 @@ class TempsController < ApplicationController
     def diff 
       @cities = City.all 
       @temps = @cities.map{ |city| city.temps }   
-
-  
-      @overnight_temps = Temp.where("created_at BETWEEN 
+      @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '18 hour' ").take(5);  
-      @after_sunset = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '1 day' - interval '8 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '6 hour' ").last(8); 
-      @high_temps = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '8 hour' ").last(5);  
+
+      #=> @afternoon wins
+      @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '4 hour' ").take(5);  
-   #   @created_at = Temp.last.created_at   
-       #@test = TempSerializer.new(@high_temps).serialized_json 
-      #render json: { OVERNIGHT: @overnight_temps, HOT: @high_temps, TEST: @test, TEST2: @test2}
-      #render json: { "AFTER_SET": TempSerializer.new(@after_sunset).serialized_json, "MidnightPlus": TempSerializer.new(@overnight_temps).serialized_json,  "HOTTEST": TempSerializer.new(@high_temps).serialized_json }
-      render json: TempSerializer.new(@after_sunset).serialized_json
+            date_trunc('day', created_at) + interval '1 day' - interval '0 hour' ").last(5);   
+       @csv_afternoon = @afternoon.map{ |temp| "Date #{temp.created_at} HoT #{temp.temp_high} NOW #{temp.current_temp}" }     
+       @csv_overnight = @overnight.map{ |temp| "Date #{temp.created_at} HoT #{temp.temp_high} NOW #{temp.current_temp}" }
+     @master_array = []
+    
+      @afternoon.map do |temp2| 
+        
+        data_afternoon_obj = {}
+        data_afternoon_obj["temp_city" ] = temp2.city.name 
+        data_afternoon_obj["created_at"] = temp2.created_at 
+        data_afternoon_obj["current_temp"] = temp2.current_temp 
+        data_afternoon_obj["temp_high"] = temp2.temp_high  
+        @master_array.push(data_afternoon_obj)
+      end
+         
+        @overnight.map do |temp| 
+        data_night_obj = {} 
+         data_night_obj["temp_city" ] = temp.city.name 
+        data_night_obj["created_at"] = temp.created_at 
+        data_night_obj["current_temp"] = temp.current_temp 
+        data_night_obj["temp_high"] = temp.temp_high 
+        @master_array.push(data_night_obj)
+      end 
+      
+      @abc = @master_array.sort{ |a,b| a["temp_city"][0] <=> b["temp_city"][0] } 
+      @data_array = []
+      @abc.map do |object| 
+        @abc.map do |object2|  
+      
+          if object["temp_city"] === object2["temp_city"]  && !(object2["created_at"] - object["created_at"] >= 0 ) 
+            data_obj = {}
+            data_obj["city"] = object["temp_city"]
+            time =  object2["created_at"] - object["created_at"]   
+            data_obj["time_change"] = (time/ 3600)
+            temp_change = object2["current_temp"] - object["current_temp"]  
+            binding.pry 
+            #=> this is degrees/hr 
+            data_obj["temp_change"] 
+            slope = temp_change / (time / 3600) 
+            data_obj["temp_change"] = slope  
+            @data_array.push(data_obj);
+          end 
+          
+        end
+        
+      end 
+      binding.pry
+       @x =  TempSerializer.new(@afternoon).serialized_json 
+       @y =  TempSerializer.new(@overnight).serialized_json 
+      
+      
+      binding.pry
+         
+       render json: [ @afternoon, @overnight ]
     end
   private
     # Use callbacks to share common setup or constraints between actions.
