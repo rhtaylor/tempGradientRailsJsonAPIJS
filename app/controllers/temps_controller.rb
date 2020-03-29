@@ -83,7 +83,7 @@ class TempsController < ApplicationController
       @temps = @cities.map{ |city| city.temps }   
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '8 hour' ").last(5);  
+            date_trunc('day', created_at) + interval '1 day' - interval '12 hour' ").last(5);  
 
       #=> @afternoon wins
       @afternoon = Temp.where("created_at BETWEEN 
@@ -112,27 +112,31 @@ class TempsController < ApplicationController
         @master_array.push(data_night_obj)
       end 
       
-      @abc = @master_array.sort{ |a,b| a["temp_city"][0] <=> b["temp_city"][0] } 
+      @abc = @master_array.sort{ |a,b| a["temp_city"][0] <=> b["temp_city"][0] }  
+      binding.pry
       @data_array = []
       @abc.map do |objectday| 
         @abc.map do |objectnight|  
           #objectday and objectnight are criss crossing and mixing up. 
-          if objectday["temp_city"] === objectnight["temp_city"]  #&& !(objectday["created_at"] - objectnight["created_at"] >= 0 ) 
+          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] < 0 ) 
+            
             data_obj = {}
             data_obj["city"] = objectday["temp_city"]
             time =  objectday["created_at"] - objectnight["created_at"]   
             data_obj["time_change"] = (time/ 3600)
             temp_change = objectnight["current_temp"] - objectday["current_temp"]  
-            binding.pry
+            
             #=> this is degrees/hr 
-            data_obj["temp_change"] 
-            slope = temp_change / (time / 3600) 
-            data_obj["temp_change"] = slope  
+            data_obj["slope"] 
+            inverted_time = (-1 * time)/ 3600
+            slope = temp_change / inverted_time
+            data_obj["slope"] = slope   
+            binding.pry
             @data_array.push(data_obj);
           end 
           
         end
-        
+        binding.pry
       end 
       binding.pry
        @x =  TempSerializer.new(@afternoon).serialized_json 
