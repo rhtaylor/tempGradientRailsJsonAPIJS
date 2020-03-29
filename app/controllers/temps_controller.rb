@@ -114,16 +114,16 @@ class TempsController < ApplicationController
       
       @abc = @master_array.sort{ |a,b| a["temp_city"][0] <=> b["temp_city"][0] } 
       @data_array = []
-      @abc.map do |object| 
-        @abc.map do |object2|  
-      
-          if object["temp_city"] === object2["temp_city"]  && !(object2["created_at"] - object["created_at"] >= 0 ) 
+      @abc.map do |objectday| 
+        @abc.map do |objectnight|  
+          #objectday and objectnight are criss crossing and mixing up. 
+          if objectday["temp_city"] === objectnight["temp_city"]  #&& !(objectday["created_at"] - objectnight["created_at"] >= 0 ) 
             data_obj = {}
-            data_obj["city"] = object["temp_city"]
-            time =  object2["created_at"] - object["created_at"]   
+            data_obj["city"] = objectday["temp_city"]
+            time =  objectday["created_at"] - objectnight["created_at"]   
             data_obj["time_change"] = (time/ 3600)
-            temp_change = object2["current_temp"] - object["current_temp"]  
-            binding.pry 
+            temp_change = objectnight["current_temp"] - objectday["current_temp"]  
+            binding.pry
             #=> this is degrees/hr 
             data_obj["temp_change"] 
             slope = temp_change / (time / 3600) 
