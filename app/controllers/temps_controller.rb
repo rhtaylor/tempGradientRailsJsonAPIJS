@@ -94,8 +94,9 @@ class TempsController < ApplicationController
      @master_array = []
     
       @afternoon.map do |temp2| 
-        
-        data_afternoon_obj = {}
+         
+        data_afternoon_obj = {} 
+        data_afternoon_obj["city_id"] = temp2.city_id
         data_afternoon_obj["temp_city" ] = temp2.city.name 
         data_afternoon_obj["created_at"] = temp2.created_at 
         data_afternoon_obj["current_temp"] = temp2.current_temp 
@@ -104,7 +105,8 @@ class TempsController < ApplicationController
       end
          
         @overnight.map do |temp| 
-        data_night_obj = {} 
+        data_night_obj = {}  
+         data_night_obj["city_id"] = temp.city_id
          data_night_obj["temp_city" ] = temp.city.name 
         data_night_obj["created_at"] = temp.created_at 
         data_night_obj["current_temp"] = temp.current_temp 
@@ -119,9 +121,10 @@ class TempsController < ApplicationController
         @abc.map do |objectnight|  
           #objectday and objectnight are criss crossing and mixing up. 
           if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] < 0 ) 
-            
+            binding.pry
             data_obj = {}
-            data_obj["city"] = objectday["temp_city"]
+            data_obj["city"] = objectday["temp_city"] 
+            data_obj["city_id"] = objectday["city_id"]
             time =  objectday["created_at"] - objectnight["created_at"]   
             data_obj["time_change"] = (time/ 3600)
             temp_change = objectnight["current_temp"] - objectday["current_temp"]  
@@ -131,12 +134,12 @@ class TempsController < ApplicationController
             inverted_time = (-1 * time)/ 3600
             slope = temp_change / inverted_time
             data_obj["slope"] = slope   
-            binding.pry
+            
             @data_array.push(data_obj);
           end 
           
         end
-        binding.pry
+        
       end 
       binding.pry
        @x =  TempSerializer.new(@afternoon).serialized_json 
