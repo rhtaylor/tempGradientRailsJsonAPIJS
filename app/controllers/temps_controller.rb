@@ -141,7 +141,9 @@ class TempsController < ApplicationController
         end
         
       end 
-      
+    y =  GlobalWarming.new(city_id: 1, city: "Phoenix",time_change: -100, slope: -5)
+    x =  WarmingTrackerSerializer.new(y).serialized_json
+    render json: x
       binding.pry
       
      x = @data_array.map{ |hash| GlobalWarming.new(hash) }
