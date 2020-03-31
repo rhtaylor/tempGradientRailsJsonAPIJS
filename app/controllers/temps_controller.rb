@@ -92,7 +92,7 @@ class TempsController < ApplicationController
        @csv_afternoon = @afternoon.map{ |temp| "Date #{temp.created_at} HoT #{temp.temp_high} NOW #{temp.current_temp}" }     
        @csv_overnight = @overnight.map{ |temp| "Date #{temp.created_at} HoT #{temp.temp_high} NOW #{temp.current_temp}" }
      @master_array = []
-    
+    binding.pry
       @afternoon.map do |temp2| 
          
         data_afternoon_obj = {} 
@@ -115,7 +115,7 @@ class TempsController < ApplicationController
       end 
       
       @abc = @master_array.sort{ |a,b| a["temp_city"][0] <=> b["temp_city"][0] }  
-     
+     binding.pry
       @data_array = []
       @abc.map do |objectday| 
         @abc.map do |objectnight|  
@@ -133,21 +133,22 @@ class TempsController < ApplicationController
             data_obj["slope"] 
             inverted_time = (-1 * time)/ 3600
             slope = temp_change / inverted_time
-            data_obj["slope"] = slope   
-            
-            @data_array.push(data_obj);
-          end 
-          
+            data_obj["slope"] = slope    
+          binding.pry
+   x = GlobalWarming.new(city_id: objectday["city_id"], city: objectday["temp_city"], time_change: time, slope: slope)
+            binding.pry
+    @data_array.push(data_obj); 
+          end
+    city = City.where(name: objectday["temp_city"])  
+    slope = 0.00777   
+   x = GlobalWarming.new(city_id: objectday["city_id"], city: city[0], slope: slope)
+          binding.pry
         end
         
       end 
-    y =  GlobalWarming.new(city_id: 1, city: "Phoenix",time_change: -100, slope: -5)
-    x =  WarmingTrackerSerializer.new(y).serialized_json
-    render json: x
-      binding.pry
-      
-     x = @data_array.map{ |hash| GlobalWarming.new(hash) }
-      binding.pry
+    
+    
+    
     end
   private
     # Use callbacks to share common setup or constraints between actions.

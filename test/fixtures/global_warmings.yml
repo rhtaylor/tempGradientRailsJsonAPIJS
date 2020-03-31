@@ -2,12 +2,10 @@
 
 one:
   city: MyString
-  time_change: 1
-  slope: 1
+  slope: 1.5
   city: one
 
 two:
   city: MyString
-  time_change: 1
-  slope: 1
+  slope: 1.5
   city: two
