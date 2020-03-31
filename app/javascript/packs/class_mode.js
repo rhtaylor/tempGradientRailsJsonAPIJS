@@ -1,24 +1,25 @@
 const BASE_URL = "http://localhost:3000/cities.json"
 const POST_BASE_URL = "http://localhost:3000/cities/"
 const TEMP_URL = "http://localhost:3000/cities/temps/diff.json"
-document.addEventListener("DOMContentLoaded", function (event) { 
+document.addEventListener("DOMContentLoaded", function (event) {
     DOMWorker.buildDOM();
     FetchData.fetchCityData();
     //timeIntervalcallback();
     document.addEventListener("click", function (e) {
         e.preventDefault()
-      e.target.matches("#green") ? FetchData.postData() : console.log("Not Here");
-      e.target.matches("#button2") ? DiffCalc.fetchTempDiff() : console.log("Try again");
-      e.target.matches("#about") ? DOMWorker.about() : console.log("not here either");
+        e.target.matches("#green") ? FetchData.postData() : console.log("Not Here");
+        e.target.matches("#button2") ? DiffCalc.fetchTempDiff() : console.log("Try again");
+        e.target.matches("#about") ? DOMWorker.about() : console.log("not here either");
     });
-}); 
+});
 class DOMWorker {
-    constructor(){
+    constructor() {
 
-    }  
+    }
     static about() {
         const about = document.getElementById("fetched") || document.createElement("div");
-        about.innerText = "About";
+        const h2 = document.createElement("h2") 
+        h2.innerText = "ABOUT:"
         const p = document.createElement("p");
         const p2 = document.createElement("p");
         const p3 = document.createElement("p");
@@ -39,6 +40,7 @@ class DOMWorker {
         p8.innerText = "societies have given rise to a blanket of gas.This gas traps radiation from the sun and hold onto that energy longer.It should be shown"
         const p9 = document.createElement("p")
         p9.innerText = "that the earth takes longer to cool after the sun has set over time.This application aims to track this temperature to ascertain if and to what degree this is happening."
+        about.appendChild(h2)
         about.appendChild(p);
         about.appendChild(p2);
         about.appendChild(p3);
@@ -51,27 +53,27 @@ class DOMWorker {
         about.appendChild(p9);
         main.appendChild(about);
     }
-static buildDOM(){  
-    console.log("buildDOM is running")
-    const main = document.getElementById("main"); 
-    const newDiv = document.getElementById("fetched") || document.createElement("div");
-    newDiv.setAttribute("id", "fetched"); 
-    const button = document.createElement("button");
-    const aboutButton = document.createElement("button");
-    aboutButton.innerText = "About";
-    aboutButton.setAttribute("id", "about");
-    button.setAttribute("id", "green");
-    button.setAttribute("class", "button")
-    button.innerText = "Display Current Temps" 
-    const button2 = document.createElement("button");
-    button2.innerText = "Display Temps Diff";
-    button2.setAttribute("id", "button2");
-    button2.setAttribute("class", "button")
-    main.appendChild(aboutButton);
-    main.appendChild(button);
-     main.appendChild(button2);   
-    main.appendChild(newDiv);
-} 
+    static buildDOM() {
+        console.log("buildDOM is running")
+        const main = document.getElementById("main");
+        const newDiv = document.getElementById("fetched") || document.createElement("div");
+        newDiv.setAttribute("id", "fetched");
+        const button = document.createElement("button");
+        const aboutButton = document.createElement("button");
+        aboutButton.innerText = "About";
+        aboutButton.setAttribute("id", "about");
+        button.setAttribute("id", "green");
+        button.setAttribute("class", "button")
+        button.innerText = "Display Current Temps"
+        const button2 = document.createElement("button");
+        button2.innerText = "Display Temps Diff";
+        button2.setAttribute("id", "button2");
+        button2.setAttribute("class", "button")
+        main.appendChild(aboutButton);
+        main.appendChild(button);
+        main.appendChild(button2);
+        main.appendChild(newDiv);
+    }
     static putInDom() {
         const div = document.getElementById("greenfire") || document.createElement("div");
         div.setAttribute("id", "greenfire")
@@ -102,8 +104,8 @@ static buildDOM(){
         newDiv.appendChild(div);
     }
 
-} 
- 
+}
+
 
 
 class FetchData {
@@ -115,11 +117,11 @@ class FetchData {
         console.log("fetching data")
         const newDiv = document.getElementById("fetched") || document.createElement("div");
         newDiv.setAttribute("id", "fetched")
-        
+
         //fetch my API for city names to use for fetch to third party API 
 
         return fetch(BASE_URL).then(res => res.json()).then(function (json) {
-            
+
             const root = document.getElementById("main");
             root.appendChild(newDiv);
 
@@ -151,7 +153,7 @@ class FetchData {
                     .then(function (json) {
                         console.log(json)
                         dataObj = {}
-                        dataObj["city"] = json.name 
+                        dataObj["city"] = json.name
                         dataObj["current_temp"] = json.main.temp
                         dataObj["sunset"] = json.sys.sunset
                         dataObj["temp_mid"] = json.main.temp
@@ -184,11 +186,11 @@ class FetchData {
                 if (cityObj.name.match(obj.city)) {
                     obj["date"] = new Date()
                     obj["fetchURL"] = cityObj.fetchURL
-                    obj["city_id"] = cityObj.id  
-                    obj["sunset_datetime"] = new Date(obj.sunset * 1000) 
-                    
-                   fetchThis(obj) 
-                    
+                    obj["city_id"] = cityObj.id
+                    obj["sunset_datetime"] = new Date(obj.sunset * 1000)
+
+                    fetchThis(obj)
+
                     return obj
                 }
                 FetchData.collectionFromData = []
@@ -229,7 +231,7 @@ class FetchData {
 
         })
     }
-}  
+}
 
 class City {
     constructor(name, id) {
@@ -238,27 +240,27 @@ class City {
         this.fetchURL = `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
     }
 
-}   
+}
 
 class DiffCalc {
-    constructor(){}
-    static fetchTempDiff() { 
-        
+    constructor() { }
+    static fetchTempDiff() {
+
         //fetching This Apps rails json API
         fetch(TEMP_URL).then(res => res.json()).then(function (data) {
 
             keys = Object.keys(data)
-            useableData = keys.map(key => data[key]) 
-            
+            useableData = keys.map(key => data[key])
+
             DiffCalc.calculatedData(useableData)
         });
-    } 
+    }
 
-    static calculatedData(arg){
+    static calculatedData(arg) {
         debugger
     }
 
-} 
+}
 
 //this is an epoc converter
 //new Date(obj.sunset * 1000)

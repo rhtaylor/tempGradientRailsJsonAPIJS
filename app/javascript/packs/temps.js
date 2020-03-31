@@ -1,3 +1,0 @@
-function promisePending(){
-    debugger
-}
