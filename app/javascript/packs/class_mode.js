@@ -8,16 +8,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.addEventListener("click", function (e) {
         e.preventDefault()
         e.target.matches("#green") ? FetchData.postData() : console.log("Not Here");
-        e.target.matches("#button2") ? DiffCalc.fetchTempDiff() : console.log("Try again");
-        e.target.matches("#about") ? DOMWorker.about() : console.log("not here either");
+        e.target.matches("#button2") ? FetchData.fetchTempDiff() : console.log("Try again");
+        e.target.matches("#aboutButton") ? DOMWorker.about() : console.log("not here either");
     });
 });
 class DOMWorker {
     constructor() {
 
     }
-    static about() {
-        const about = document.getElementById("fetched") || document.createElement("div");
+    static about() { 
+        
+        main.removeChild(document.getElementById("fetched"));
+        
+        const about = document.getElementById("fetched") || document.createElement("div"); 
+        about.setAttribute("id", "fetched")
         const h2 = document.createElement("h2") 
         h2.innerText = "ABOUT:"
         const p = document.createElement("p");
@@ -61,7 +65,7 @@ class DOMWorker {
         const button = document.createElement("button");
         const aboutButton = document.createElement("button");
         aboutButton.innerText = "About";
-        aboutButton.setAttribute("id", "about");
+        aboutButton.setAttribute("id", "aboutButton");
         button.setAttribute("id", "green");
         button.setAttribute("class", "button")
         button.innerText = "Display Current Temps"
@@ -74,9 +78,10 @@ class DOMWorker {
         main.appendChild(button2);
         main.appendChild(newDiv);
     }
-    static putInDom() {
-        const div = document.getElementById("greenfire") || document.createElement("div");
-        div.setAttribute("id", "greenfire")
+    static putInDom() { 
+        main.removeChild(document.getElementById("fetched"))
+        const div = document.getElementById("fetched") || document.createElement("div");
+        div.setAttribute("id", "fetched")
 
         newDiv = document.getElementById("fetched")
 
@@ -101,7 +106,7 @@ class DOMWorker {
             div.appendChild(subDiv);
         })
 
-        newDiv.appendChild(div);
+        main.appendChild(div);
     }
 
 }
@@ -230,8 +235,28 @@ class FetchData {
 
 
         })
+    } 
+    fetchTempDiff() {
+
+        //fetching This Apps rails json API
+        fetch(TEMP_URL).then(res => res.json()).then(function (data) {
+
+            keys = Object.keys(data)
+            useableData = keys.map(key => data[key])
+
+            FetchData.calculatedData(useableData)
+        });
     }
+
+    static calculatedData(arg) {
+        debugger
+    }
+
 }
+
+
+
+
 
 class City {
     constructor(name, id) {
@@ -242,25 +267,6 @@ class City {
 
 }
 
-class DiffCalc {
-    constructor() { }
-    static fetchTempDiff() {
-
-        //fetching This Apps rails json API
-        fetch(TEMP_URL).then(res => res.json()).then(function (data) {
-
-            keys = Object.keys(data)
-            useableData = keys.map(key => data[key])
-
-            DiffCalc.calculatedData(useableData)
-        });
-    }
-
-    static calculatedData(arg) {
-        debugger
-    }
-
-}
 
 //this is an epoc converter
 //new Date(obj.sunset * 1000)
