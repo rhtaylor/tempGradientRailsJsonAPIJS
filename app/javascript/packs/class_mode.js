@@ -83,10 +83,10 @@ class DOMWorker {
         div.setAttribute("id", "fetched")
 
         newDiv = document.getElementById("fetched")
-
+        
         FetchData.Superresponse.map(obj => {
             obj
-            debugger
+            
             const subDiv = document.getElementById(obj.city) || document.createElement("div");
             subDiv.setAttribute("id", obj.city);
             subDiv.setAttribute("class", "white")
@@ -106,6 +106,26 @@ class DOMWorker {
         })
 
         main.appendChild(div);
+    } 
+    static putInDomminos(arg){
+        debugger 
+       const fetched = document.getElementById("fetched") || document.createElement("div");
+       arg.map((globalWarming) =>{
+            const subDiv = document.getElementById(globalWarming["city"]) || document.createElement("div");
+            subDiv.setAttribute("id", globalWarming["city"]); 
+            debugger 
+            const h2 = document.createElement("h2");
+            h2.innerText = globalWarming["city"];
+            const h4 = document.createElement("h4");
+            h4.innerText = "Slope (rate degrees/hr)"; 
+            const h42 = document.createElement("h4");
+            h42.innerText = globalWarming["info"]["slope"] 
+            subDiv.appendChild(h2);
+            subDiv.appendChild(h4);
+            subDiv.appendChild(h42);
+            main.appendChild(subDiv);
+       })
+
     }
 
 }
@@ -200,7 +220,7 @@ class FetchData {
                 FetchData.collectionFromData = []
 
                 function fetchThis(obj) {
-                    debugger
+                    
                     const postObjOptions = {
                         method: 'post',
                         credentials: 'same-origin',
@@ -225,6 +245,7 @@ class FetchData {
                             FetchData.collectionFromData.push(FetchData.fromMyDb)
 
                             if (FetchData.Superresponse.length == FetchData.collectionFromData.length) {
+                                
                                 DOMWorker.putInDom();
                                 return FetchData.fromMyDb
                             }
@@ -239,10 +260,10 @@ class FetchData {
 
         //fetching This Apps rails json API
         fetch(TEMP_URL).then(res => res.json()).then(function (data) {
-                debugger
+                
            
-            FetchData.Superresponse = data
-            DOMWorker.putInDom()
+           
+            DOMWorker.putInDomminos(data)
         });
     }
 
