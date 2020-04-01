@@ -72,11 +72,11 @@ class Temp < ApplicationRecord
             slope = temp_change / inverted_time
             data_obj["slope"] = slope    
             
-     binding.pry
+     
             #for decimal slope call to_s to get the useable number
           record_for_serialization = GlobalWarming.new(city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)
           record_for_serialization.city = objectday["temp_city"] 
-          binding.pry
+          
           json = WarmingTrackerSerializer.new(record_for_serialization).serialized_json 
     @data_array.push({ "city": record_for_serialization.city , "info": record_for_serialization }) 
     #revert back if unserialized data is not different     

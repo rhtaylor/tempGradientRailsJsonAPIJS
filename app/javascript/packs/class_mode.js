@@ -89,9 +89,12 @@ class DOMWorker {
             
             const subDiv = document.getElementById(obj.city) || document.createElement("div");
             subDiv.setAttribute("id", obj.city);
-            subDiv.setAttribute("class", "white")
+            subDiv.setAttribute("class", "white") 
+            if (document.getElementById(obj.city)){ 
+                subDiv.removeChild(document.querySelector(`.${obj.city}`))
+            }
             const newH = document.getElementById("newH") || document.createElement("h2");
-            newH.setAttribute("id", "newH");
+            newH.setAttribute("class", obj.city);
             const newerH = document.getElementById("newerH") || document.createElement("h3");
             newerH.setAttribute("id", "newerH");
             const lowestH = document.getElementById("lowestH") || document.createElement("h3");
@@ -113,8 +116,10 @@ class DOMWorker {
        arg.map((globalWarming) =>{
             const subDiv = document.getElementById(globalWarming["city"]) || document.createElement("div");
             subDiv.setAttribute("id", globalWarming["city"]); 
-            debugger 
-            const h2 = document.createElement("h2");
+            debugger  
+          
+            const h2 = document.querySelector(`.${globalWarming["city"]}`) || document.createElement("h2"); 
+            h2.setAttribute("class", globalWarming["city"]);
             h2.innerText = globalWarming["city"];
             const h4 = document.createElement("h4");
             h4.innerText = "Slope (rate degrees/hr)"; 
