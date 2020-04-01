@@ -95,15 +95,21 @@ class DOMWorker {
             }
             const newH = document.getElementById("newH") || document.createElement("h2");
             newH.setAttribute("class", obj.city);
-            const newerH = document.getElementById("newerH") || document.createElement("h3");
+            const newerH = document.getElementById("newerH") || document.createElement("h2");
             newerH.setAttribute("id", "newerH");
-            const lowestH = document.getElementById("lowestH") || document.createElement("h3");
+            const lowestH = document.getElementById("lowestH") || document.createElement("h2");
             lowestH.setAttribute("id", "lowestH");
             newerH.innerText = obj.temp_high
             lowestH.innerText = obj.temp_low;
             newH.innerText = obj.city;
-            subDiv.appendChild(newH);
-            subDiv.appendChild(newerH);
+            subDiv.appendChild(newH); 
+            const hiLabel = document.createElement("h3");
+            hiLabel.innerText = "Daily High Temp";
+            subDiv.appendChild(hiLabel);
+            subDiv.appendChild(newerH); 
+            const label = document.createElement("h3") 
+            label.innerText = "Daily Low Temp"
+            subDiv.appendChild(label);
             subDiv.appendChild(lowestH);
             div.appendChild(subDiv);
         })
@@ -111,12 +117,12 @@ class DOMWorker {
         main.appendChild(div);
     } 
     static putInDomminos(arg){
-        debugger 
+        
        const fetched = document.getElementById("fetched") || document.createElement("div");
        arg.map((globalWarming) =>{
             const subDiv = document.getElementById(globalWarming["city"]) || document.createElement("div");
             subDiv.setAttribute("id", globalWarming["city"]); 
-            debugger  
+             
           
             const h2 = document.querySelector(`.${globalWarming["city"]}`) || document.createElement("h2"); 
             h2.setAttribute("class", globalWarming["city"]);

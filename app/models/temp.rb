@@ -20,7 +20,7 @@ class Temp < ApplicationRecord
       @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
             date_trunc('day', created_at) + interval '1 day' - interval '0 hour' ").last(5);  
- binding.pry
+ 
     @master_array = [] 
     @test = Temp.where(:date === Date.current.tomorrow).last(5);
     
