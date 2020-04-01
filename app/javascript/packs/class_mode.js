@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     FetchData.fetchCityData();
     //timeIntervalcallback();
     document.addEventListener("click", function (e) {
-        e.preventDefault()
+        e.preventDefault() 
+        //add fetching notice
         e.target.matches("#green") ? FetchData.postData() : console.log("Not Here");
         e.target.matches("#button2") ? FetchData.fetchTempDiff() : console.log("Try again");
         e.target.matches("#aboutButton") ? DOMWorker.about() : console.log("not here either");
