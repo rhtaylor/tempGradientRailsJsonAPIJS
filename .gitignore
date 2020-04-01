@@ -29,3 +29,5 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+const MYAPIKEY = fe2a775f427aa5fc92ce0379937b9ee9 
+/javascript/packs

@@ -33,9 +33,7 @@ class DOMWorker {
         p.innerText = "Boiling Forest is brought to you from the mind of a conscientious citizen."
         p2.innerText = "Randall Taylor graduated from the University of Arizona with  BS in Physiology, minor in Biochemistry,"
         p3.innerText = "and second minor in business administration. With a strong interest in science he always had a full "
-        p4.innerText = "mind of scientific and engineering ideas. For example he crafted something called a Potential Energy Pendulum"
-        p5.innerText = "which has valid physics behind the idea. This PEP would in effect create a clean source of a natural gas from water"
-        p6.innerText = "with minor drawbacks."
+        p4.innerText = "mind of scientific and engineering ideas."
         const abstract = document.createElement("h2");
         abstract.innerText = "ABSTRACT:"
         const p7 = document.createElement("p");
@@ -70,7 +68,7 @@ class DOMWorker {
         button.setAttribute("class", "button")
         button.innerText = "Display Current Temps"
         const button2 = document.createElement("button");
-        button2.innerText = "Display Temps Diff";
+        button2.innerText = "Display Temp Decrease Rate ";
         button2.setAttribute("id", "button2");
         button2.setAttribute("class", "button")
         main.appendChild(aboutButton);
@@ -87,7 +85,7 @@ class DOMWorker {
 
         FetchData.Superresponse.map(obj => {
             obj
-
+            debugger
             const subDiv = document.getElementById(obj.city) || document.createElement("div");
             subDiv.setAttribute("id", obj.city);
             subDiv.setAttribute("class", "white")
@@ -241,16 +239,13 @@ class FetchData {
         //fetching This Apps rails json API
         fetch(TEMP_URL).then(res => res.json()).then(function (data) {
                 debugger
-            keys = Object.keys(data)
-            useableData = keys.map(key => data[key])
-
-            FetchData.calculatedData(useableData)
+           
+            FetchData.Superresponse = data
+            DOMWorker.putInDom()
         });
     }
 
-    static calculatedData(arg) {
-        debugger
-    }
+    
 
 }
 

@@ -23,7 +23,7 @@ class Temp < ApplicationRecord
  binding.pry
       @master_array = [] 
     @test = Temp.where(:date === Date.current.tomorrow).last(5);
-    binding.pry
+    
     #=> creating out of the instances of Temp for use 
     #@test is used in place of @afternoon as I have zero records made for the PM shift.  
       #@afternoo.map do |temp2|
@@ -40,8 +40,8 @@ class Temp < ApplicationRecord
          
         @overnight.map do |temp| 
         data_night_obj = {}  
-         data_night_obj["city_id"] = temp.city_id
-         data_night_obj["temp_city" ] = temp.city.name 
+        data_night_obj["city_id"] = temp.city_id
+        data_night_obj["temp_city" ] = temp.city.name 
         data_night_obj["created_at"] = temp.created_at 
         data_night_obj["current_temp"] = temp.current_temp 
         data_night_obj["temp_high"] = temp.temp_high 
@@ -72,21 +72,22 @@ class Temp < ApplicationRecord
             slope = temp_change / inverted_time
             data_obj["slope"] = slope    
     
-     binding.pry 
      
-    record_for_serialization = GlobalWarming.new(city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)
-            binding.pry 
+            #for decimal slope call to_s to get the useable number
+          record_for_serialization = GlobalWarming.new(city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)
+             
           json = WarmingTrackerSerializer.new(record_for_serialization).serialized_json 
-          binding.pry
-    @data_array.push(data_obj); 
+    @data_array.push(record_for_serialization) 
+    #revert back if unserialized data is not different     
+    #@data_array.push(json); 
           end
            
         end
         
       end 
     
-    
-      return @master_array
+   
+      return @data_array
     end
 
 
