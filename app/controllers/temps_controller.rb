@@ -65,14 +65,6 @@ class TempsController < ApplicationController
     end
   end
  
-  def pastmidnight 
-    @temps = Temp.where('EXTRACT(hour FROM created_at) BETWEEN ? AND ?', 0000, 0004)
-    render json: @temps  
-    
-  end 
-
-  
-
   def diff 
       x = Temp.calculate_city_temp_drop 
       render json: x

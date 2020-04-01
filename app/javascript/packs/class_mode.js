@@ -236,11 +236,11 @@ class FetchData {
 
         })
     } 
-    fetchTempDiff() {
+   static  fetchTempDiff() {
 
         //fetching This Apps rails json API
         fetch(TEMP_URL).then(res => res.json()).then(function (data) {
-
+                debugger
             keys = Object.keys(data)
             useableData = keys.map(key => data[key])
 

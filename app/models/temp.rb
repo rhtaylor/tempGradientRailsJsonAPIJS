@@ -15,17 +15,19 @@ class Temp < ApplicationRecord
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
             date_trunc('day', created_at) + interval '1 day' - interval '12 hour' ").last(5);  
-
+ 
       #=> @afternoon temp records
       @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
             date_trunc('day', created_at) + interval '1 day' - interval '0 hour' ").last(5);  
-
+ binding.pry
       @master_array = [] 
-
-     
-    #=> creating out of the instances of Temp for use
-      @afternoon.map do |temp2| 
+    @test = Temp.where(:date === Date.current.tomorrow).last(5);
+    binding.pry
+    #=> creating out of the instances of Temp for use 
+    #@test is used in place of @afternoon as I have zero records made for the PM shift.  
+      #@afternoo.map do |temp2|
+      @test.map do |temp2| 
          
         data_afternoon_obj = {} 
         data_afternoon_obj["city_id"] = temp2.city_id
@@ -50,7 +52,8 @@ class Temp < ApplicationRecord
      
       @data_array = [] 
           #=> this will be BigO^2 I don't know another way to do it
-          #=> I determine which record is night based on the time created then find the slope
+          #=> I determine which record is night based on the time created then find the slope 
+          #=> roger, what do you think I should do here? O^2. I hate it. 
       @abc.map do |objectday| 
         @abc.map do |objectnight|  
           #objectday and objectnight are criss crossing and mixing up. 
@@ -60,23 +63,24 @@ class Temp < ApplicationRecord
             data_obj["city"] = objectday["temp_city"] 
             data_obj["city_id"] = objectday["city_id"]
             time =  objectday["created_at"] - objectnight["created_at"]   
-            data_obj["time_change"] = (time/ 3600)
+            data_obj["time_change"] = (time/ 360000)
             temp_change = objectnight["current_temp"] - objectday["current_temp"]  
             
             #=> this is degrees/hr 
             data_obj["slope"] 
-            inverted_time = (-1 * time)/ 3600
+            inverted_time = (-1 * time)/ 360000
             slope = temp_change / inverted_time
             data_obj["slope"] = slope    
-          
-   x = GlobalWarming.new(city_id: objectday["city_id"], city: objectday["temp_city"], time_change: time, slope: slope)
-            
+    
+     binding.pry 
+     
+    record_for_serialization = GlobalWarming.new(city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)
+            binding.pry 
+          json = WarmingTrackerSerializer.new(record_for_serialization).serialized_json 
+          binding.pry
     @data_array.push(data_obj); 
           end
-    city = City.where(name: objectday["temp_city"])  
-    slope = 0.00777   
-   x = GlobalWarming.new(city_id: objectday["city_id"], city: city[0], slope: slope)
-         
+           
         end
         
       end 

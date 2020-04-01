@@ -16,6 +16,12 @@ City.create([
 ]);  
 
 
- 
+ GlobalWarming.create([
+    {slope: -0.03, time_elapsed: 5.365, city_id:1},
+    {slope: -0.00777, time_elapsed: 5.35, city_id: 2},
+    {slope: 1.444, time_elapsed: 5.34, city_id:3},
+    {slope: -0.999, time_elapsed: 5.345, city_id: 4}, 
+    {slope: 1, time_elapsed:5.555, city_id:5} 
+])
 
 
