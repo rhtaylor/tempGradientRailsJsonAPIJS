@@ -9,15 +9,17 @@ class Temp < ApplicationRecord
   end  
 
   def self.calculate_city_temp_drop 
-
+      
+      #Temp.where("created_at::date = ?", "march 1 2020".to_date) 
+      #these records are looking good; i only have until 1300 in db so cannot tell after that
       @afternoon = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '11 hour'  AND 
-            date_trunc('day', created_at) + interval '17 hour' ");   
+            date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
+            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(5);   
 
       @overnight = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '0 hour'  AND 
-            date_trunc('day', created_at) + interval '5 hour' ");
- 
+            date_trunc('day', created_at) + interval '1 day' - interval '24' hour  AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(5);
+    
      
       @another_overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24' hour AND 
@@ -58,9 +60,10 @@ class Temp < ApplicationRecord
           #=> roger, what do you think I should do here? O^2. I hate it. 
       @abc.map do |objectday| 
         @abc.map do |objectnight|  
-          #objectday and objectnight are criss crossing and mixing up. 
-          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] < 0 ) && (objectday["created_at"].day == objectnight["created_at"].day + 1)
-           binding.pry
+          #objectday and objectnight are criss crossing and mixing up.  
+          
+          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] > 0 ) && (objectday["created_at"].day == objectnight["created_at"].day + 1)
+           
             data_obj = {}
             data_obj["city"] = objectday["temp_city"] 
             data_obj["city_id"] = objectday["city_id"]
@@ -73,7 +76,7 @@ class Temp < ApplicationRecord
             inverted_time = (-1 * time)/ 3600
             slope = temp_change / inverted_time
             data_obj["slope"] = slope    
-            binding.pry
+            
      
             #for decimal slope call to_s to get the useable number
           record_for_serialization = GlobalWarming.new(city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)
