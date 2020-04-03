@@ -8,21 +8,23 @@ class Temp < ApplicationRecord
     self.temp_high - self.temp_low
   end  
 
-  def self.calculate_city_temp_drop
-      @cities = City.all 
-      @temps = @cities.map{ |city| city.temps }   
-      #=> overnight temp records  
-      @overnight = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '1 day' - interval '24 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '12 hour' ").last(5);  
- 
-      #=> @afternoon temp records
+  def self.calculate_city_temp_drop 
+
       @afternoon = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '1 day' - interval '12 hour' AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '0 hour' ").last(5);  
+            date_trunc('day', created_at) + interval '11 hour'  AND 
+            date_trunc('day', created_at) + interval '17 hour' ");   
+
+      @overnight = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '0 hour'  AND 
+            date_trunc('day', created_at) + interval '5 hour' ");
+ 
+     
+      @another_overnight = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '24' hour AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '21' hour ").first(5);  
  
     @master_array = [] 
-    @test = Temp.where(:date === Date.current.tomorrow).last(5);
+    
     
     #=> creating out of the instances of Temp for use 
     #@test is used in place of @afternoon as I have zero records made for the PM shift.  
@@ -57,8 +59,8 @@ class Temp < ApplicationRecord
       @abc.map do |objectday| 
         @abc.map do |objectnight|  
           #objectday and objectnight are criss crossing and mixing up. 
-          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] < 0 ) 
-           
+          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] < 0 ) && (objectday["created_at"].day == objectnight["created_at"].day + 1)
+           binding.pry
             data_obj = {}
             data_obj["city"] = objectday["temp_city"] 
             data_obj["city_id"] = objectday["city_id"]
@@ -71,7 +73,7 @@ class Temp < ApplicationRecord
             inverted_time = (-1 * time)/ 3600
             slope = temp_change / inverted_time
             data_obj["slope"] = slope    
-            
+            binding.pry
      
             #for decimal slope call to_s to get the useable number
           record_for_serialization = GlobalWarming.new(city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)

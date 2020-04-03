@@ -42,7 +42,9 @@ class DOMWorker {
         const p8 = document.createElement("p")
         p8.innerText = "societies have given rise to a blanket of gas.This gas traps radiation from the sun and hold onto that energy longer.It should be shown"
         const p9 = document.createElement("p")
-        p9.innerText = "that the earth takes longer to cool after the sun has set over time.This application aims to track this temperature to ascertain if and to what degree this is happening."
+        p9.innerText = "that the earth takes longer to cool after the sun has set over time."
+        p10 = document.createElement("p") 
+        p10.innerText = "This application aims to track this temperature to ascertain if and to what degree this is happening."
         about.appendChild(h2)
         about.appendChild(p);
         about.appendChild(p2);
@@ -53,7 +55,8 @@ class DOMWorker {
         about.appendChild(abstract)
         about.appendChild(p7);
         about.appendChild(p8);
-        about.appendChild(p9);
+        about.appendChild(p9); 
+        about.appendChild(p10);
         main.appendChild(about);
     }
     static buildDOM() {
