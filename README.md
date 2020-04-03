@@ -1,4 +1,4 @@
-# Boiling Forest 
+<h1><b> Boiling Forest</b></h1> 
 
 Boiling Forest utilizes a third party API openweathermap to pull weather data, process that data, and then calculate the rate of global cooling. 
 
@@ -6,20 +6,12 @@ Boiling Forest is an application designed to track global warming. Greenhouse ga
 <h1>Performance Comparison</h1>
 Things you may want to cover:
 
-* Ruby version
+<p>Ruby version: ruby '2.6.1'</p>
 
-* System dependencies
+<h3>System dependencies</h3>
+<p>    gem 'rack-cors'</p>
+<p>    gem 'pg', '>= 0.18', '< 2.0'</p>
+<p>    gem 'date'</p>
 
-* Configuration
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
