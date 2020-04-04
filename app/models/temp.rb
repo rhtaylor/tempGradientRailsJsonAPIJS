@@ -17,7 +17,7 @@ class Temp < ApplicationRecord
             date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(5);   
 
       @overnight = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '1 day' - interval '24' hour  AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '19' hour  AND 
             date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(5);
     
      binding.pry
@@ -73,7 +73,7 @@ class Temp < ApplicationRecord
             
             #=> this is degrees/hr 
             data_obj["slope"] 
-            inverted_time = (-1 * time)/ 3600
+            inverted_time = (1 * time)/ 3600
             slope = temp_change / inverted_time
             data_obj["slope"] = slope    
             
