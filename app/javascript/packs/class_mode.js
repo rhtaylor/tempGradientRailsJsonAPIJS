@@ -1,18 +1,22 @@
 const BASE_URL = "http://localhost:3000/cities.json"
 const POST_BASE_URL = "http://localhost:3000/cities/"
-const TEMP_URL = "http://localhost:3000/cities/temps/diff.json"
+const TEMP_URL = "http://localhost:3000/cities/temps/diff.json" 
+
 document.addEventListener("DOMContentLoaded", function (event) {
     DOMWorker.buildDOM();
-    FetchData.fetchCityData();
-    //timeIntervalcallback();
+    //FetchData.fetchCityData();
+    FetchData.timeIntervalCallback();
+    
     document.addEventListener("click", function (e) {
         e.preventDefault() 
         //add fetching notice
         e.target.matches("#green") ? FetchData.postData() : console.log("Not Here");
         e.target.matches("#button2") ? FetchData.fetchTempDiff() : console.log("Try again");
-        e.target.matches("#aboutButton") ? DOMWorker.about() : console.log("not here either");
+        e.target.matches("#aboutButton") ? DOMWorker.about() : console.log("not here either"); 
+        e.target.matches("#pause") ? FetchData.timeIntervalCallback() : console.log("this is a good app");
     });
-});
+}); 
+
 class DOMWorker {
     constructor() {
 
@@ -71,13 +75,17 @@ class DOMWorker {
         button.setAttribute("id", "green");
         button.setAttribute("class", "button")
         button.innerText = "Display Current Temps"
-        const button2 = document.createElement("button");
+        const button2 = document.createElement("button"); 
+        const buttonPause = document.createElement("button");
+        buttonPause.setAttribute("id", "pause"); 
+        buttonPause.innerText = ">>";
         button2.innerText = "Display Temp Decrease Rate ";
         button2.setAttribute("id", "button2");
-        button2.setAttribute("class", "button")
+        button2.setAttribute("class", "button") 
         main.appendChild(aboutButton);
         main.appendChild(button);
         main.appendChild(button2);
+        main.appendChild(buttonPause);
         main.appendChild(newDiv);
     }
     static putInDom() { 
@@ -280,7 +288,23 @@ class FetchData {
             DOMWorker.putInDomminos(data)
         });
     }
-
+     
+  
+    static timeIntervalCallback(){   
+        
+        if (pause.innerText == "||"){ 
+            pause.innerText = ">>"; 
+            clearInterval(interval)
+            
+        } else { 
+            pause.innerText = "||" 
+            interval = setInterval(FetchData.fetchCityData, 60000)
+        }
+       
+        
+    }  
+    
+   
     
 
 }

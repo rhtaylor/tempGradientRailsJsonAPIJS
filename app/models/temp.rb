@@ -14,13 +14,13 @@ class Temp < ApplicationRecord
       #these records are looking good; i only have until 1300 in db so cannot tell after that
       @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
-            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(5);   
+            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ");   
 
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24' hour  AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(5);
+            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ");
     
-     
+     binding.pry
       @another_overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24' hour AND 
             date_trunc('day', created_at) + interval '1 day' - interval '21' hour ").first(5);  
