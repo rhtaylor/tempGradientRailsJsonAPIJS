@@ -14,11 +14,11 @@ class Temp < ApplicationRecord
       #these records are looking good; i only have until 1300 in db so cannot tell after that
       @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
-            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ");   
+            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(5);   
 
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24' hour  AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ");
+            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(5);
     
      binding.pry
       @another_overnight = Temp.where("created_at BETWEEN 
@@ -63,7 +63,7 @@ class Temp < ApplicationRecord
           #objectday and objectnight are criss crossing and mixing up.  
           
           if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] > 0 ) && (objectday["created_at"].day == objectnight["created_at"].day + 1)
-           
+           binding.pry
             data_obj = {}
             data_obj["city"] = objectday["temp_city"] 
             data_obj["city_id"] = objectday["city_id"]

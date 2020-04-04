@@ -4,9 +4,9 @@ const TEMP_URL = "http://localhost:3000/cities/temps/diff.json"
 
 document.addEventListener("DOMContentLoaded", function (event) {
     DOMWorker.buildDOM();
-    //FetchData.fetchCityData();
+    FetchData.fetchCityData();
     FetchData.timeIntervalCallback();
-    
+    DOMWorker.about()
     document.addEventListener("click", function (e) {
         e.preventDefault() 
         //add fetching notice
@@ -34,7 +34,8 @@ class DOMWorker {
         const p3 = document.createElement("p");
         const p4 = document.createElement("p");
         const p5 = document.createElement("p");
-        const p6 = document.createElement("p");
+        const p6 = document.createElement("p"); 
+        const p0 = document.createElement("p");
         p.innerText = "Boiling Forest is brought to you from the mind of a conscientious citizen."
         p2.innerText = "Randall Taylor graduated from the University of Arizona with  BS in Physiology, minor in Biochemistry,"
         p3.innerText = "and second minor in business administration. With a strong interest in science he always had a full "
@@ -49,7 +50,10 @@ class DOMWorker {
         p9.innerText = "that the earth takes longer to cool after the sun has set over time."
         p10 = document.createElement("p") 
         p10.innerText = "This application aims to track this temperature to ascertain if and to what degree this is happening."
-        about.appendChild(h2)
+        p11 = document.createElement("p");
+        p0.innerText = "APPLICATION IS SCHEDULED TO GET DATA EVERY 6 HOURS AND SAVE THEAT DATA"
+        about.appendChild(h2);
+        about.appendChild(p0);
         about.appendChild(p);
         about.appendChild(p2);
         about.appendChild(p3);
@@ -61,6 +65,7 @@ class DOMWorker {
         about.appendChild(p8);
         about.appendChild(p9); 
         about.appendChild(p10);
+        about.appendChild(p11);
         main.appendChild(about);
     }
     static buildDOM() {
@@ -96,7 +101,7 @@ class DOMWorker {
         newDiv = document.getElementById("fetched")
         
         FetchData.Superresponse.map(obj => {
-            obj
+            
             
             const subDiv = document.getElementById(obj.city) || document.createElement("div");
             subDiv.setAttribute("id", obj.city);
@@ -107,9 +112,9 @@ class DOMWorker {
             const newH = document.getElementById("newH") || document.createElement("h2");
             newH.setAttribute("class", obj.city);
             const newerH = document.getElementById("newerH") || document.createElement("h2");
-            newerH.setAttribute("id", "newerH");
+            newerH.setAttribute("id", `${obj.temp_high}`);
             const lowestH = document.getElementById("lowestH") || document.createElement("h2");
-            lowestH.setAttribute("id", "lowestH");
+            lowestH.setAttribute("id", `${obj.temp_low}`);
             newerH.innerText = obj.temp_high
             lowestH.innerText = obj.temp_low;
             newH.innerText = obj.city;
@@ -297,8 +302,9 @@ class FetchData {
             clearInterval(interval)
             
         } else { 
-            pause.innerText = "||" 
-            interval = setInterval(FetchData.fetchCityData, 60000)
+            pause.innerText = "||"  
+            //interval will be set to about 6 hours in production 
+            interval = setInterval(FetchData.fetchCityData, 600000)
         }
        
         
