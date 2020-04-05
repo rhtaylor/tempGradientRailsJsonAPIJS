@@ -22,7 +22,6 @@ class DOMWorker {
 
     }
     static about() { 
-        
         main.removeChild(document.getElementById("fetched"));
         
         const about = document.getElementById("fetched") || document.createElement("div"); 
@@ -83,7 +82,7 @@ class DOMWorker {
         const button2 = document.createElement("button"); 
         const buttonPause = document.createElement("button");
         buttonPause.setAttribute("id", "pause"); 
-        buttonPause.innerText = ">>";
+        buttonPause.innerText = "start >>";
         button2.innerText = "Display Temp Decrease Rate ";
         button2.setAttribute("id", "button2");
         button2.setAttribute("class", "button") 
@@ -139,13 +138,28 @@ class DOMWorker {
             const subDiv = document.getElementById(globalWarming["city"]) || document.createElement("div");
             subDiv.setAttribute("id", globalWarming["city"]); 
              
-          
+                
             const h2 = document.querySelector(`.${globalWarming["city"]}`) || document.createElement("h2"); 
             h2.setAttribute("class", globalWarming["city"]);
-            h2.innerText = globalWarming["city"];
-            const h4 = document.createElement("h4");
+            h2.innerText = globalWarming["city"];  
+            
+            if (document.getElementById(`${globalWarming["info"]["slope"]}`)){ 
+               let x = document.getElementById(`${globalWarming["info"]["slope"]}`)  
+                
+               y = x.parentElement
+               y.removeChild(x);
+            } 
+           if (document.getElementById(`${globalWarming["info"]["slope"][1] + globalWarming["info"]["slope"]}`)){
+               let ele = document.getElementById(`${globalWarming["info"]["slope"][1] + globalWarming["info"]["slope"]}`);
+               let parentEle = ele.parentElement;
+               parentEle.removeChild(ele);
+           } 
+           globalWarming["info"]["city_id"]
+            const h4 = document.getElementById(`${globalWarming["info"]["city_id"]}`) || document.createElement("h4")
+            h4.setAttribute("id", globalWarming["info"]["city_id"])
             h4.innerText = "Slope (rate degrees/hr)"; 
-            const h42 = document.createElement("h4");
+            const h42 = document.getElementById(`${globalWarming["city"] + globalWarming["info"]["city_id"]}`) || document.createElement("h4");
+           h42.setAttribute("id", globalWarming["city"] + globalWarming["info"]["city_id"])
             h42.innerText = globalWarming["info"]["slope"] 
             subDiv.appendChild(h2);
             subDiv.appendChild(h4);
@@ -297,12 +311,12 @@ class FetchData {
   
     static timeIntervalCallback(){   
         
-        if (pause.innerText == "||"){ 
-            pause.innerText = ">>"; 
+        if (pause.innerText == "pause ||"){ 
+            pause.innerText = "start >>"; 
             clearInterval(interval)
             
         } else { 
-            pause.innerText = "||"  
+            pause.innerText = "pause ||"  
             //interval will be set to about 6 hours in production 
             interval = setInterval(FetchData.fetchCityData, 600000)
         }

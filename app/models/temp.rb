@@ -11,16 +11,17 @@ class Temp < ApplicationRecord
   def self.calculate_city_temp_drop 
       
       #Temp.where("created_at::date = ?", "march 1 2020".to_date) 
-      #these records are looking good; i only have until 1300 in db so cannot tell after that
+      #these records are looking good; i only have until 1300 in db so cannot tell after that 
+      #created between 12 pm and 4 pm
       @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
-            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(5);   
-
+            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(10);   
+      #created between 0000 and 3 am
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '19' hour  AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(5);
+            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(10);
     
-     binding.pry
+     
       @another_overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '24' hour AND 
             date_trunc('day', created_at) + interval '1 day' - interval '21' hour ").first(5);  
@@ -52,7 +53,15 @@ class Temp < ApplicationRecord
         @master_array.push(data_night_obj)
       end 
       #=>sorting the hashes by city
-      @abc = @master_array.sort{ |a,b| a["temp_city"][0] <=> b["temp_city"][0] }  
+      @abc = @master_array.sort do  |a,b| 
+        x = (a["temp_city"][0] <=> b["temp_city"][0])  
+          if x.zero?  
+            
+              (a["created_at"] <=> b["created_at"]) 
+          end 
+          x
+      end
+        
      
       @data_array = [] 
           #=> this will be BigO^2 I don't know another way to do it
@@ -62,8 +71,8 @@ class Temp < ApplicationRecord
         @abc.map do |objectnight|  
           #objectday and objectnight are criss crossing and mixing up.  
           
-          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"] - objectnight["created_at"] > 0 ) && (objectday["created_at"].day == objectnight["created_at"].day + 1)
-           binding.pry
+          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"].hour - objectnight["created_at"].hour > 0 ) && (objectday["created_at"].day == objectnight["created_at"].day + 1)
+           
             data_obj = {}
             data_obj["city"] = objectday["temp_city"] 
             data_obj["city_id"] = objectday["city_id"]
@@ -98,3 +107,6 @@ class Temp < ApplicationRecord
 
 
 end
+ 
+
+   
