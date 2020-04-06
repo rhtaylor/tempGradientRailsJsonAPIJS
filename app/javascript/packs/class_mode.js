@@ -301,9 +301,7 @@ class FetchData {
 
         //fetching This Apps rails json API
         fetch(TEMP_URL).then(res => res.json()).then(function (data) {
-                
-           
-           
+              
             DOMWorker.putInDomminos(data)
         });
     }
