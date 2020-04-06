@@ -47,11 +47,10 @@ class Temp < ApplicationRecord
         data_night_obj["temp_high"] = temp.temp_high 
         @master_array.push(data_night_obj)
       end 
-      #=>sorting the hashes by city
+      #=>nested sorting the hashes by city then by created_at
       @abc = @master_array.sort do  |a,b| 
         x = (a["temp_city"][0] <=> b["temp_city"][0])  
-          if x.zero?  
-            
+          if x.zero?     
               (a["created_at"] <=> b["created_at"]) 
           end 
           x
@@ -74,7 +73,7 @@ class Temp < ApplicationRecord
             time =  objectday["created_at"] - objectnight["created_at"]   
             data_obj["time_change"] = (time/ 360000)
             temp_change = objectnight["current_temp"] - objectday["current_temp"]  
-            
+           
             #=> this is degrees/hr 
             data_obj["slope"] 
             inverted_time = (1 * time)/ 3600

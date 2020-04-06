@@ -22,8 +22,9 @@ class DOMWorker {
 
     }
     static about() { 
+        if (document.getElementById("fetched")){
         main.removeChild(document.getElementById("fetched"));
-        
+        }
         const about = document.getElementById("fetched") || document.createElement("div"); 
         about.setAttribute("id", "fetched")
         const h2 = document.createElement("h2") 
@@ -92,8 +93,10 @@ class DOMWorker {
         main.appendChild(buttonPause);
         main.appendChild(newDiv);
     }
-    static putInDom() { 
-        main.removeChild(document.getElementById("fetched"))
+    static putInDom() {  
+        if (document.getElementById("fetched")){
+            main.removeChild(document.getElementById("fetched")) 
+        }
         const div = document.getElementById("fetched") || document.createElement("div");
         div.setAttribute("id", "fetched")
 
@@ -107,12 +110,13 @@ class DOMWorker {
             subDiv.setAttribute("class", "white") 
             if (document.getElementById(obj.city)){ 
                 subDiv.removeChild(document.querySelector(`.${obj.city}`))
-            }
-            const newH = document.getElementById("newH") || document.createElement("h2");
-            newH.setAttribute("class", obj.city);
-            const newerH = document.getElementById("newerH") || document.createElement("h2");
+            } 
+           
+            const newH = document.getElementById(obj.city + obj.city) || document.createElement("h2");
+            newH.setAttribute("id", obj.city + obj.city);
+            const newerH = document.getElementById(obj.temp_high) || document.createElement("h2");
             newerH.setAttribute("id", `${obj.temp_high}`);
-            const lowestH = document.getElementById("lowestH") || document.createElement("h2");
+            const lowestH = document.getElementById(obj.temp_low) || document.createElement("h2");
             lowestH.setAttribute("id", `${obj.temp_low}`);
             newerH.innerText = obj.temp_high
             lowestH.innerText = obj.temp_low;
@@ -132,10 +136,14 @@ class DOMWorker {
         main.appendChild(div);
     } 
     static putInDomminos(arg){
-        
-       const fetched = document.getElementById("fetched") || document.createElement("div");
+        if (document.getElementById("fetched")){
+        main.removeChild(document.getElementById("fetched")) 
+        }
+       const fetched = document.getElementById("fetched") || document.createElement("div"); 
+       fetched.setAttribute("id", "fetched");
        arg.map((globalWarming) =>{
-            const subDiv = document.getElementById(globalWarming["city"]) || document.createElement("div");
+            const subDiv = document.getElementById(globalWarming["city"]) || document.createElement("div"); 
+            subDiv.setAttribute("class", "white") 
             subDiv.setAttribute("id", globalWarming["city"]); 
              
                 
@@ -155,16 +163,17 @@ class DOMWorker {
                parentEle.removeChild(ele);
            } 
            globalWarming["info"]["city_id"]
-            const h4 = document.getElementById(`${globalWarming["info"]["city_id"]}`) || document.createElement("h4")
-            h4.setAttribute("id", globalWarming["info"]["city_id"])
-            h4.innerText = "Slope (rate degrees/hr)"; 
+            const h3 = document.getElementById(`${globalWarming["info"]["city_id"]}`) || document.createElement("h3")
+            h3.setAttribute("id", globalWarming["info"]["city_id"])
+            h3.innerText = "Slope (rate degrees/hr)"; 
             const h42 = document.getElementById(`${globalWarming["city"] + globalWarming["info"]["city_id"]}`) || document.createElement("h4");
            h42.setAttribute("id", globalWarming["city"] + globalWarming["info"]["city_id"])
             h42.innerText = globalWarming["info"]["slope"] 
             subDiv.appendChild(h2);
-            subDiv.appendChild(h4);
-            subDiv.appendChild(h42);
-            main.appendChild(subDiv);
+            subDiv.appendChild(h3);
+            subDiv.appendChild(h42); 
+            fetched.appendChild(subDiv)
+            main.appendChild(fetched);
        })
 
     }
@@ -298,7 +307,7 @@ class FetchData {
         })
     } 
    static  fetchTempDiff() {
-
+    
         //fetching This Apps rails json API
         fetch(TEMP_URL).then(res => res.json()).then(function (data) {
               
