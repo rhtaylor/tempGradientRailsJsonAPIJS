@@ -15,11 +15,11 @@ class Temp < ApplicationRecord
       #created between 12 pm and 4 pm
       @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
-            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(15);   
+            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last();   
       #created between 0000 and 3 am
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '19' hour  AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(15);
+            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(25);
      
     @master_array = [] 
     
@@ -78,19 +78,20 @@ class Temp < ApplicationRecord
             data_obj["slope"] 
             inverted_time = (1 * time)/ 3600
             slope = temp_change / inverted_time
-            data_obj["slope"] = slope    
-            
-     
+            data_obj["slope"] = slope     
+            #refactor for find or create type deal
+            record_for_serialization = GlobalWarming.create(city: City.find(objectday["city_id"]), city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)
+   
+          
             #for decimal slope call to_s to get the useable number
-          record_for_serialization = GlobalWarming.new(city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)
-            #One thing I will need to do is refactor and save these records
-          record_for_serialization.city = objectday["temp_city"] 
-         
+          record_for_serialization = GlobalWarming.create(city: City.find(objectday["city_id"]), city_id: objectday["city_id"], time_elapsed: inverted_time, slope: slope)
+            
+          
            
-          #line 92 is never used
+         
           json = WarmingTrackerSerializer.new(record_for_serialization).serialized_json 
     @data_array.push({ "city": record_for_serialization.city , "info": record_for_serialization }) 
-    #revert back if unserialized data is not different     
+      binding.pry
     #@data_array.push(json); 
           end
            

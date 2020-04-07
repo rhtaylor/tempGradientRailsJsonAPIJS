@@ -135,39 +135,41 @@ class DOMWorker {
 
         main.appendChild(div);
     } 
-    static putInDomminos(arg){
+    static putInDomminos(arg){ 
+        
         if (document.getElementById("fetched")){
         main.removeChild(document.getElementById("fetched")) 
         }
        const fetched = document.getElementById("fetched") || document.createElement("div"); 
        fetched.setAttribute("id", "fetched");
-       arg.map((globalWarming) =>{
-            const subDiv = document.getElementById(globalWarming["city"]) || document.createElement("div"); 
+       arg.map((globalWarming) =>{ 
+           debugger
+            const subDiv = document.getElementById(globalWarming["city"].name) || document.createElement("div"); 
             subDiv.setAttribute("class", "white") 
-            subDiv.setAttribute("id", globalWarming["city"]); 
+            subDiv.setAttribute("id", globalWarming["city"].name); 
              
                 
-            const h2 = document.querySelector(`.${globalWarming["city"]}`) || document.createElement("h2"); 
-            h2.setAttribute("class", globalWarming["city"]);
-            h2.innerText = globalWarming["city"];  
+            const h2 = document.querySelector(`.${globalWarming["city"].name}`) || document.createElement("h2"); 
+            h2.setAttribute("class", globalWarming["city"].name);
+            h2.innerText = globalWarming["city"].name;  
             
-            if (document.getElementById(`${globalWarming["info"]["slope"]}`)){ 
-               let x = document.getElementById(`${globalWarming["info"]["slope"]}`)  
+            if (document.getElementById(`${globalWarming["info"].slope}`)){ 
+               let x = document.getElementById(`${globalWarming["info"].slope}`)  
                 
                y = x.parentElement
                y.removeChild(x);
             } 
-           if (document.getElementById(`${globalWarming["info"]["slope"][1] + globalWarming["info"]["slope"]}`)){
-               let ele = document.getElementById(`${globalWarming["info"]["slope"][1] + globalWarming["info"]["slope"]}`);
+           if (document.getElementById(`${globalWarming["info"].slope[1] + globalWarming["info"].slope}`)){
+               let ele = document.getElementById(`${globalWarming["info"].slope[1] + globalWarming["info"].slope}`);
                let parentEle = ele.parentElement;
                parentEle.removeChild(ele);
            } 
            globalWarming["info"]["city_id"]
-            const h3 = document.getElementById(`${globalWarming["info"]["city_id"]}`) || document.createElement("h3")
-            h3.setAttribute("id", globalWarming["info"]["city_id"])
+            const h3 = document.getElementById(`${globalWarming["city"].id}`) || document.createElement("h3")
+            h3.setAttribute("id", globalWarming["city"].id)
             h3.innerText = "Slope (rate degrees/hr)"; 
-            const h42 = document.getElementById(`${globalWarming["city"] + globalWarming["info"]["city_id"]}`) || document.createElement("h4");
-           h42.setAttribute("id", globalWarming["city"] + globalWarming["info"]["city_id"])
+            const h42 = document.getElementById(`${globalWarming["city"].name + globalWarming["city"].id}`) || document.createElement("h4");
+            h42.setAttribute("id", globalWarming["city"].name + globalWarming["city"].id)
             h42.innerText = globalWarming["info"]["slope"] 
             subDiv.appendChild(h2);
             subDiv.appendChild(h3);
