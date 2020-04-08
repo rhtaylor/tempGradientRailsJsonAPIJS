@@ -10,6 +10,7 @@ class TempsController < ApplicationController
   # GET /temps
   # GET /temps.json
   def index
+    binding.pry
     @temps = Temp.all
   end
 

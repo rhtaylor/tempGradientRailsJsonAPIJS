@@ -10,10 +10,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.addEventListener("click", function (e) {
         e.preventDefault() 
         //add fetching notice
-        e.target.matches("#green") ? FetchData.postData() : console.log("Not Here");
+        e.target.matches("#green") ? FetchData.postData() : console.log("Not Here"); 
+        e.target.matches("#pickCity") ? DOMWorker.pickCity() : console.log("youll click something that works eventually!")
         e.target.matches("#button2") ? FetchData.fetchTempDiff() : console.log("Try again");
         e.target.matches("#aboutButton") ? DOMWorker.about() : console.log("not here either"); 
         e.target.matches("#pause") ? FetchData.timeIntervalCallback() : console.log("this is a good app");
+        e.target.matches("#addButton") ? FetchData.searchForCity() : console.log("keep coding");
     });
 }); 
 
@@ -82,6 +84,9 @@ class DOMWorker {
         button.innerText = "Display Current Temps"
         const button2 = document.createElement("button"); 
         const buttonPause = document.createElement("button");
+        const addCityButton = document.createElement("button");
+        addCityButton.setAttribute("id","pickCity"); 
+        addCityButton.innerText = "Add a City to Track"
         buttonPause.setAttribute("id", "pause"); 
         buttonPause.innerText = "start >>";
         button2.innerText = "Display Temp Decrease Rate ";
@@ -90,6 +95,7 @@ class DOMWorker {
         main.appendChild(aboutButton);
         main.appendChild(button);
         main.appendChild(button2);
+        main.appendChild(addCityButton);
         main.appendChild(buttonPause);
         main.appendChild(newDiv);
     }
@@ -178,7 +184,35 @@ class DOMWorker {
             main.appendChild(fetched);
        })
 
-    }
+    } 
+    static pickCity(){ 
+        if (document.getElementById("fetched")){ 
+            const main = document.getElementById("main") 
+            const fetched = document.getElementById("fetched")
+            main.removeChild(fetched);
+        }
+       const main = document.getElementById("main");  
+       const form = document.getElementById("form") || document.createElement("form"); 
+       form.setAttribute("method", "POST"); 
+       form.setAttribute("action", POST_BASE_URL);
+       form.setAttribute("id", "cityForm")
+       const label = document.getElementById("label") || document.createElement("label");  
+       label.setAttribute("id", "label")
+       label.innerText = "City"
+       const input = document.getElementById("input") || document.createElement("input"); 
+       input.setAttribute("id", "input")
+       const send = document.getElementById("addButton") || document.createElement("button"); 
+       send.setAttribute("id", "addButton")
+       send.innerText = "add"; 
+       send.setAttribute("type", "submit"); 
+       send.setAttribute("value", "submit");
+       send.setAttribute("from", "cityForm");
+       form.appendChild(label)
+       form.appendChild(input) 
+       form.appendChild(send)
+       main.appendChild(form)
+       
+        }
 
 }
 
@@ -333,9 +367,31 @@ class FetchData {
         
     }  
     
-   
-    
+    static searchForCity(){ 
+       const input = document.getElementById("input");  
+       let city = input.value 
+       let test = city.split(" ")  
+       debugger
+            if (test.length === 1){
+       let fetchURL = `api.openweathermap.org/data/2.5/weather?q=${city},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
+        fetch(fetchURL).then(res =>{
+            if(res.status == 404){
+                alert("getting better at this!")
+            } else 
+            res.json()})
+        .then(function (json){ 
+            debugger 
+        })
+        .catch(function(response){ 
+            debugger })
+    } else {
+            let fetchable = test.join("&");
+               debugger
+            } 
 
+        debugger
+    }
+        
 }
 
 

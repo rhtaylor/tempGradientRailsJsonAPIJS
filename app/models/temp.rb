@@ -15,7 +15,7 @@ class Temp < ApplicationRecord
       #created between 12 pm and 4 pm
       @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
-            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last();   
+            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(25);   
       #created between 0000 and 3 am
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '19' hour  AND 
@@ -23,7 +23,7 @@ class Temp < ApplicationRecord
      
     @master_array = [] 
     
-    
+     
     #=> creating out of the instances of Temp for use 
     #@test is used in place of @afternoon as I have zero records made for the PM shift.  
       @afternoon.map do |temp2|
@@ -91,7 +91,7 @@ class Temp < ApplicationRecord
          
           json = WarmingTrackerSerializer.new(record_for_serialization).serialized_json 
     @data_array.push({ "city": record_for_serialization.city , "info": record_for_serialization }) 
-      binding.pry
+      
     #@data_array.push(json); 
           end
            
