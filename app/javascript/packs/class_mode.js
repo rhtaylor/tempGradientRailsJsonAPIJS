@@ -370,25 +370,34 @@ class FetchData {
     static searchForCity(){ 
        const input = document.getElementById("input");  
        let city = input.value 
-       let test = city.split(" ")  
+       let inputCheckt = city.replace(/\s+/, "&")  
+       
        debugger
-            if (test.length === 1){
-       let fetchURL = `api.openweathermap.org/data/2.5/weather?q=${city},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
+            
+       let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheckt},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
         fetch(fetchURL).then(res =>{
             if(res.status == 404){
-                alert("getting better at this!")
+                alert("City Not Found! Check spelling or a different city.")
             } else 
-            res.json()})
+            return res.json()})
         .then(function (json){ 
-            debugger 
+            
+            if( json.name){ 
+                 
+                const cityNew = new City(json.name) 
+                
+                FetchData.addCityToMyDB(cityNew)
+            } 
         })
         .catch(function(response){ 
-            debugger })
-    } else {
-            let fetchable = test.join("&");
-               debugger
-            } 
+            alert("Try later: Could not connect")    
+        })
+    
+            
 
+        debugger
+    } 
+    static addCityToMyDB(arg){
         debugger
     }
         

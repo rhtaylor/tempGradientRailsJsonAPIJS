@@ -13,8 +13,13 @@ class CitiesController < ApplicationController
   end
 
   # GET /cities/new
-  def new
-    @city = City.new
+  def new 
+    binding.pry
+    @city = City.new  
+     respond_to do |format| 
+      f.json { render json: @city}
+     end
+
   end
 
   # GET /cities/1/edit
