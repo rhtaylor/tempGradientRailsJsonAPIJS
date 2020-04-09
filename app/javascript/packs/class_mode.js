@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:3000/cities.json"
 const POST_BASE_URL = "http://localhost:3000/cities/"
 const TEMP_URL = "http://localhost:3000/cities/temps/diff.json" 
-
+const NEW_CITY_URL = "http://localhost:3000/cities/create"
 document.addEventListener("DOMContentLoaded", function (event) {
     DOMWorker.buildDOM();
     FetchData.fetchCityData();
@@ -398,8 +398,34 @@ class FetchData {
         debugger
     } 
     static addCityToMyDB(arg){
-        debugger
+        debugger  
+        let cityName = arg.name 
+        obj = {name: arg.name}
+        const postObjOptions = {
+            method: 'post',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(obj)
+        }
+
+        fetch(NEW_CITY_URL, postObjOptions)
+            .then(function (res) {
+                return res.json()
+            }).then(function (data) {
+                const success = document.createElement("div")
+                success.setAttribute("id", "success");
+                const p = document.createElement("p");
+                p.innerText = "Your city is now being tracked by Boiling Forest!" 
+                success.appendChild(p)
+                main.appendChild(success)
+                FetchData.postData()
+            })
     }
+
+    
         
 }
 

@@ -1,6 +1,6 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :verify_authenticity_token 
   # GET /cities
   # GET /cities.json
   def index
@@ -14,10 +14,10 @@ class CitiesController < ApplicationController
 
   # GET /cities/new
   def new 
-    binding.pry
-    @city = City.new  
-     respond_to do |format| 
-      f.json { render json: @city}
+    
+      @city = City.new(name: params["name"])  
+       respond_to do |format| 
+      format.json { render json: @city}
      end
 
   end
@@ -30,7 +30,7 @@ class CitiesController < ApplicationController
   # POST /cities.json
   def create 
 
-    binding.pry
+    
     @city = City.new(city_params)
 
     respond_to do |format|
@@ -38,7 +38,7 @@ class CitiesController < ApplicationController
         format.html { redirect_to @city, notice: 'City was successfully created.' }
         format.json { render :show, status: :created, location: @city }
       else
-        format.html { render :new }
+        
         format.json { render json: @city.errors, status: :unprocessable_entity }
       end
     end
