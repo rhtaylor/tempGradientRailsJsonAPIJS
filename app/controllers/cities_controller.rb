@@ -1,27 +1,24 @@
 class CitiesController < ApplicationController
-  before_action :set_city, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token 
-  # GET /cities
-  # GET /cities.json
-  def index 
-    
-    @cities = City.all 
+  before_action :set_city, only: [ :show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token  
+  before_action :assign_env_variables
+
+  def assign_env_variables
+    gon.key = ENV["MYAPIKEY"]
+  end 
+  
    
-    @returnValue = @cities.map do |city|  
-    
-       if city[:name] === nil 
-          city[:name] = city.to_name 
-          city.save! 
-          
-          city
-       else
-          city
-       end  
-       
-      end 
+
+   def index 
+   @all = City.all_in_json  
+   @alll = City.all
+   respond_to do |format|
+      format.html { render :index }
       
-    @returnValue
-  end
+      format.json { render json: @alll }
+    end
+   end  
+   
 
   # GET /cities/1
   # GET /cities/1.json

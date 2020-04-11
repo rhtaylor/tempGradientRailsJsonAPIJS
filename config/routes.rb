@@ -1,7 +1,8 @@
 Rails.application.routes.draw do  
   get 'global_warming/diff'
   resources :temps
-  resources :cities  
+  resources :cities 
+  get '/cities.json', to: 'cities#index'  
   post '/cities/create', to: 'cities#create' 
   post '/globalwarming', to: 'global_warming#diff'
   get '/globalwarming', to: 'global_warming#diff'

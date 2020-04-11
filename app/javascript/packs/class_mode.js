@@ -1,7 +1,9 @@
 const BASE_URL = "http://localhost:3000/cities.json"
 const POST_BASE_URL = "http://localhost:3000/cities/"
 const TEMP_URL = "http://localhost:3000/cities/temps/diff.json" 
-const NEW_CITY_URL = "http://localhost:3000/cities/create"
+const NEW_CITY_URL = "http://localhost:3000/cities/create" 
+
+
 document.addEventListener("DOMContentLoaded", function (event) {
     DOMWorker.buildDOM();
     FetchData.fetchCityData();
@@ -388,7 +390,7 @@ class FetchData {
            inputCheckt = sanitizedCity.replace(/\s+/, "&")
        }  
        
-       let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheckt},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
+        let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheckt},us&units=imperial&APPID=${gon.key}`
        
        fetch(fetchURL).then( res =>{
             if(res.status === 200){ 
@@ -456,7 +458,7 @@ class City {
     constructor(name, id, fetchURL) {
         this.name = name
         this.id = id
-        this.fetchURL = fetchURL || `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
+        this.fetchURL = fetchURL || `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=${gon.key}`
     }
 
 }
