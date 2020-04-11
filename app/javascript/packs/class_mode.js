@@ -47,11 +47,11 @@ class DOMWorker {
         const p7 = document.createElement("p");
         p7.innerText = "Global warming is largely considered fact in the scientific community.The pumping of CO2 into the air by way of capitalistic"
         const p8 = document.createElement("p")
-        p8.innerText = "societies have given rise to a blanket of gas.This gas traps radiation from the sun and hold onto that energy longer.It should be shown"
+        p8.innerText = "societies has given rise to a blanket of gas.This gas traps radiation from the sun and holds that energy in longer. The goal is to show"
         const p9 = document.createElement("p")
-        p9.innerText = "that the earth takes longer to cool after the sun has set over time."
+        p9.innerText = "that the earth takes longer to cool after the sun has set each night over months and years."
         p10 = document.createElement("p") 
-        p10.innerText = "This application aims to track this temperature to ascertain if and to what degree this is happening."
+        p10.innerText = "This application aims to track this temperature change to ascertain if and to what degree this is happening."
         p11 = document.createElement("p");
         p0.innerText = "APPLICATION IS SCHEDULED TO GET DATA EVERY 6 HOURS AND SAVE THEAT DATA"
         about.appendChild(h2);
@@ -300,7 +300,7 @@ class FetchData {
         this.Superresponse.map(obj => {
             
             FetchData.cityObjArray.map(cityObj => {
-                debugger
+                
 
                 if (cityObj.name.match(obj.city)) {
                     obj["date"] = new Date()
@@ -338,7 +338,7 @@ class FetchData {
                                 FetchData.fromMyDb["low_temp"] = data.temp_low,
                                 FetchData.fromMyDb["sunSet"] = new Date(data.sunset * 1000)
                             FetchData.collectionFromData.push(FetchData.fromMyDb)
-                            debugger
+                            
                             if (FetchData.Superresponse.length == FetchData.collectionFromData.length) {
                                 
                                 DOMWorker.putInDom();
@@ -381,12 +381,13 @@ class FetchData {
        let city = input.value  
        sanitizedCity = city.replace(/=/, "") 
        let x = sanitizedCity.match(/^[a-z]/); 
-       debugger 
-       let noCaseIssues = sanitizedCity.replace(/^[a-z]/, x[0].toUpperCase())
-       let inputCheckt = noCaseIssues.replace(/\s+/, "&")  
+        if(x){
+             noCaseIssues = sanitizedCity.replace(/^[a-z]/, x[0].toUpperCase())
+            let inputCheckt = noCaseIssues.replace(/\s+/, "&")  } 
+       else { 
+           inputCheckt = sanitizedCity.replace(/\s+/, "&")
+       }  
        
-       
-            
        let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheckt},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
        
        fetch(fetchURL).then( res =>{
