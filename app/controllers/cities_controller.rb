@@ -3,8 +3,24 @@ class CitiesController < ApplicationController
   skip_before_action :verify_authenticity_token 
   # GET /cities
   # GET /cities.json
-  def index
-    @cities = City.all
+  def index 
+    
+    @cities = City.all 
+   
+    @returnValue = @cities.map do |city|  
+    
+       if city[:name] === nil 
+          city[:name] = city.to_name 
+          city.save! 
+          
+          city
+       else
+          city
+       end  
+       
+      end 
+      
+    @returnValue
   end
 
   # GET /cities/1
@@ -14,12 +30,8 @@ class CitiesController < ApplicationController
 
   # GET /cities/new
   def new 
-    
-      @city = City.new(name: params["name"])  
-       respond_to do |format| 
-      format.json { render json: @city}
-     end
-
+    @city = City.new(name: params["name"])  
+    @city.to_json    
   end
 
   # GET /cities/1/edit
@@ -29,20 +41,13 @@ class CitiesController < ApplicationController
   # POST /cities
   # POST /cities.json
   def create 
-
-    
     @city = City.new(city_params)
-
-    respond_to do |format|
-      if @city.save
-        format.html { redirect_to @city, notice: 'City was successfully created.' }
-        format.json { render :show, status: :created, location: @city }
+      if @city.save!
+         render json: @city 
       else
-        
         format.json { render json: @city.errors, status: :unprocessable_entity }
       end
     end
-  end
 
   # PATCH/PUT /cities/1
   # PATCH/PUT /cities/1.json
@@ -76,6 +81,6 @@ class CitiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def city_params
-      params.require(:city).permit(:name, :region)
+      params.require(:city).permit(:name, :region, :fetchURL)
     end
 end

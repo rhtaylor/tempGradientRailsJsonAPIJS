@@ -1,0 +1,56 @@
+=> [[32m#<City:0x00007fffca2d49f8[0m
+  id: [1;34m1[0m,
+  name: [31m[1;31m"[0m[31mPhoenix[1;31m"[0m[31m[0m,
+  region: [31m[1;31m"[0m[31msouthwest[1;31m"[0m[31m[0m,
+  created_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  updated_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  fetchURL:
+   [31m[1;31m"[0m[31mhttp://api.openweathermap.org/data/2.5/weather?q=Phoenix,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9[1;31m"[0m[31m[0m[32m>[0m,
+ [32m#<City:0x00007fffca34e168[0m
+  id: [1;34m2[0m,
+  name: [31m[1;31m"[0m[31mColumbus[1;31m"[0m[31m[0m,
+  region: [31m[1;31m"[0m[31mMidwest[1;31m"[0m[31m[0m,
+  created_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  updated_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  fetchURL:
+   [31m[1;31m"[0m[31mhttp://api.openweathermap.org/data/2.5/weather?q=Columbus,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9[1;31m"[0m[31m[0m[32m>[0m,
+ [32m#<City:0x00007fffca34e0a0[0m
+  id: [1;34m3[0m,
+  name: [31m[1;31m"[0m[31mBoston[1;31m"[0m[31m[0m,
+  region: [31m[1;31m"[0m[31meast[1;31m"[0m[31m[0m,
+  created_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  updated_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  fetchURL:
+   [31m[1;31m"[0m[31mhttp://api.openweathermap.org/data/2.5/weather?q=Boston,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9[1;31m"[0m[31m[0m[32m>[0m,
+ [32m#<City:0x00007fffca34dfd8[0m
+  id: [1;34m4[0m,
+  name: [31m[1;31m"[0m[31mOrlando[1;31m"[0m[31m[0m,
+  region: [31m[1;31m"[0m[31msoutheast[1;31m"[0m[31m[0m,
+  created_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  updated_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  fetchURL:
+   [31m[1;31m"[0m[31mhttp://api.openweathermap.org/data/2.5/weather?q=Orlando,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9[1;31m"[0m[31m[0m[32m>[0m,
+ [32m#<City:0x00007fffca34dee8[0m
+  id: [1;34m5[0m,
+  name: [31m[1;31m"[0m[31mSeattle[1;31m"[0m[31m[0m,
+  region: [31m[1;31m"[0m[31mnorthwest[1;31m"[0m[31m[0m,
+  created_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  updated_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m10[0m:[1;34m20[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  fetchURL:
+   [31m[1;31m"[0m[31mhttp://api.openweathermap.org/data/2.5/weather?q=Seattle,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9[1;31m"[0m[31m[0m[32m>[0m,
+ [32m#<City:0x00007fffca34dda8[0m
+  id: [1;34m6[0m,
+  name: [1;36mnil[0m,
+  region: [1;36mnil[0m,
+  created_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m12[0m:[1;34m30[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  updated_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m12[0m:[1;34m30[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  fetchURL:
+   [31m[1;31m"[0m[31mhttp://api.openweathermap.org/data/2.5/weather?q=San&Diego,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9[1;31m"[0m[31m[0m[32m>[0m,
+ [32m#<City:0x00007fffca34dce0[0m
+  id: [1;34m7[0m,
+  name: [1;36mnil[0m,
+  region: [1;36mnil[0m,
+  created_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m15[0m:[1;34m00[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  updated_at: [1;34;4mFri[0m, [1;34m10[0m [1;34;4mApr[0m [1;34m2020[0m [1;34m15[0m:[1;34m15[0m:[1;34m00[0m [1;34;4mMST[0m [1;34m-07[0m:[1;34m00[0m,
+  fetchURL:
+   [31m[1;31m"[0m[31mhttp://api.openweathermap.org/data/2.5/weather?q=San&Francisco,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9[1;31m"[0m[31m[0m[32m>[0m]

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     DOMWorker.buildDOM();
     FetchData.fetchCityData();
     FetchData.timeIntervalCallback();
-    DOMWorker.about()
+    DOMWorker.about();
     document.addEventListener("click", function (e) {
         e.preventDefault() 
         //add fetching notice
@@ -99,7 +99,8 @@ class DOMWorker {
         main.appendChild(buttonPause);
         main.appendChild(newDiv);
     }
-    static putInDom() {  
+    static putInDom() {   
+        
         if (document.getElementById("fetched")){
             main.removeChild(document.getElementById("fetched")) 
         }
@@ -111,22 +112,24 @@ class DOMWorker {
         FetchData.Superresponse.map(obj => {
             
             
-            const subDiv = document.getElementById(obj.city) || document.createElement("div");
-            subDiv.setAttribute("id", obj.city);
-            subDiv.setAttribute("class", "white") 
-            if (document.getElementById(obj.city)){ 
-                subDiv.removeChild(document.querySelector(`.${obj.city}`))
-            } 
+            const subDiv = document.getElementById(obj.city) || document.createElement("div"); 
+        
+            subDiv.setAttribute("id", obj.fetchURL.slice(42, 65));
+            subDiv.setAttribute("class", "white")  
            
+            
             const newH = document.getElementById(obj.city + obj.city) || document.createElement("h2");
-            newH.setAttribute("id", obj.city + obj.city);
+            newH.setAttribute("id", obj.city + obj.fetchURL);
             const newerH = document.getElementById(obj.temp_high) || document.createElement("h2");
             newerH.setAttribute("id", `${obj.temp_high}`);
             const lowestH = document.getElementById(obj.temp_low) || document.createElement("h2");
             lowestH.setAttribute("id", `${obj.temp_low}`);
             newerH.innerText = obj.temp_high
-            lowestH.innerText = obj.temp_low;
-            newH.innerText = obj.city;
+            lowestH.innerText = obj.temp_low; 
+            
+            let cityName = obj.fetchURL.match(/=\w+\W\w+,|=\w+,/) 
+            
+            newH.innerText = cityName[0].slice(1, cityName[0].length - 1);
             subDiv.appendChild(newH); 
             const hiLabel = document.createElement("h3");
             hiLabel.innerText = "Daily High Temp";
@@ -149,7 +152,7 @@ class DOMWorker {
        const fetched = document.getElementById("fetched") || document.createElement("div"); 
        fetched.setAttribute("id", "fetched");
        arg.map((globalWarming) =>{ 
-           debugger
+           
             const subDiv = document.getElementById(globalWarming["city"].name) || document.createElement("div"); 
             subDiv.setAttribute("class", "white") 
             subDiv.setAttribute("id", globalWarming["city"].name); 
@@ -228,39 +231,45 @@ class FetchData {
         const newDiv = document.getElementById("fetched") || document.createElement("div");
         newDiv.setAttribute("id", "fetched")
 
-        //fetch my API for city names to use for fetch to third party API 
-
+        //fetch this apps API for city names or fetchURLs to use for fetch to third party API 
+            
         return fetch(BASE_URL).then(res => res.json()).then(function (json) {
-
+            
             const root = document.getElementById("main");
             root.appendChild(newDiv);
-
-            const cityArray = json.map(obj => {
+            
+            const cityArray = json.map(obj => { 
+                
                 idName = {}
                 idName["name"] = obj.name
                 idName["id"] = obj.id
                 return idName
             });
             FetchData.cityObjArray = cityArray.map(city => {
-
+                
                 return city = new City(city.name, city.id)
 
             });
 
-            const fetchURLArray = FetchData.cityObjArray.map(cityObj => cityObj.fetchURL);
+            const fetchURLArray = FetchData.cityObjArray.map(cityObj => cityObj.fetchURL); 
+            
             FetchData.Superresponse = []
-            return dataFromFetch = fetchURLArray.map(function (url, i) {
+            return dataFromFetch = fetchURLArray.map(function (url, i) { 
+                
                 let rawUrl = url.replace(/['"]+/g, '');
-                let better = "http://" + rawUrl
+                let better = "http://" + rawUrl 
+               
                 console.log(better)
                 const response = []
                 //added to track the city of the data 
                 //programmatically taking city names from this app API and turing them into fetchable
                 //endpoints to the third party API
                 response[i] = better
-
-                return fetch(better).then(res => res.json())
-                    .then(function (json) {
+                
+                return fetch(better).then(res => res.json()) 
+            
+                    .then(function (json) { 
+                        
                         console.log(json)
                         dataObj = {}
                         dataObj["city"] = json.name
@@ -287,11 +296,11 @@ class FetchData {
 
     }
     static postData() {
-
+        
         this.Superresponse.map(obj => {
-            console.log(new Date().toTimeString().split(" ")[0], obj)
+            
             FetchData.cityObjArray.map(cityObj => {
-
+                debugger
 
                 if (cityObj.name.match(obj.city)) {
                     obj["date"] = new Date()
@@ -329,7 +338,7 @@ class FetchData {
                                 FetchData.fromMyDb["low_temp"] = data.temp_low,
                                 FetchData.fromMyDb["sunSet"] = new Date(data.sunset * 1000)
                             FetchData.collectionFromData.push(FetchData.fromMyDb)
-
+                            debugger
                             if (FetchData.Superresponse.length == FetchData.collectionFromData.length) {
                                 
                                 DOMWorker.putInDom();
@@ -369,38 +378,42 @@ class FetchData {
     
     static searchForCity(){ 
        const input = document.getElementById("input");  
-       let city = input.value 
-       let inputCheckt = city.replace(/\s+/, "&")  
+       let city = input.value  
+       sanitizedCity = city.replace(/=/, "") 
+       let x = sanitizedCity.match(/^[a-z]/); 
+       debugger 
+       let noCaseIssues = sanitizedCity.replace(/^[a-z]/, x[0].toUpperCase())
+       let inputCheckt = noCaseIssues.replace(/\s+/, "&")  
        
-       debugger
+       
             
        let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheckt},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
-        fetch(fetchURL).then(res =>{
-            if(res.status == 404){
-                alert("City Not Found! Check spelling or a different city.")
-            } else 
-            return res.json()})
-        .then(function (json){ 
-            
-            if( json.name){ 
-                 
-                const cityNew = new City(json.name) 
+       
+       fetch(fetchURL).then( res =>{
+            if(res.status === 200){ 
+                  
+                let cityNew = new City(name = null, id = null, fetchURL = res.url) 
                 
                 FetchData.addCityToMyDB(cityNew)
-            } 
+                return res.json() 
+             } else if ( res.status === 404){  
+                alert("City Not Found! Check spelling or try a different city.") 
+                            }
         })
+        
         .catch(function(response){ 
             alert("Try later: Could not connect")    
         })
     
             
 
-        debugger
+        
     } 
     static addCityToMyDB(arg){
-        debugger  
-        let cityName = arg.name 
-        obj = {name: arg.name}
+          
+        
+        obj = {fetchURL: arg.fetchURL} 
+        
         const postObjOptions = {
             method: 'post',
             credentials: 'same-origin',
@@ -414,18 +427,23 @@ class FetchData {
         fetch(NEW_CITY_URL, postObjOptions)
             .then(function (res) {
                 return res.json()
-            }).then(function (data) {
+            }).then(function (data) { 
+                
                 const success = document.createElement("div")
                 success.setAttribute("id", "success");
                 const p = document.createElement("p");
                 p.innerText = "Your city is now being tracked by Boiling Forest!" 
                 success.appendChild(p)
-                main.appendChild(success)
-                FetchData.postData()
+                main.appendChild(success) 
+                FetchData.fetchCityData();
+                setTimeout(function(){ 
+                    main.removeChild(success)
+                    FetchData.postData()}, 4000);
             })
     }
 
     
+
         
 }
 
@@ -434,10 +452,10 @@ class FetchData {
 
 
 class City {
-    constructor(name, id) {
+    constructor(name, id, fetchURL) {
         this.name = name
         this.id = id
-        this.fetchURL = `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
+        this.fetchURL = fetchURL || `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
     }
 
 }
