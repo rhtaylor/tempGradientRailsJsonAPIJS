@@ -340,7 +340,7 @@ class FetchData {
                                 FetchData.fromMyDb["low_temp"] = data.temp_low,
                                 FetchData.fromMyDb["sunSet"] = new Date(data.sunset * 1000)
                             FetchData.collectionFromData.push(FetchData.fromMyDb)
-                            
+                                
                             if (FetchData.Superresponse.length == FetchData.collectionFromData.length) {
                                 
                                 DOMWorker.putInDom();

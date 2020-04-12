@@ -65,7 +65,7 @@ class Temp < ApplicationRecord
         @abc.map do |objectnight|  
           #objectday and objectnight are criss crossing and mixing up.  
           
-          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"].hour - objectnight["created_at"].hour > 0 ) && (objectday["created_at"].day == objectnight["created_at"].day + 1)
+          if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"].hour - objectnight["created_at"].hour > 0 ) && (objectday["created_at"].day + 1 == objectnight["created_at"].day )
            
             data_obj = {}
             data_obj["city"] = objectday["temp_city"] 
@@ -76,7 +76,7 @@ class Temp < ApplicationRecord
            
             #=> this is degrees/hr 
             data_obj["slope"] 
-            inverted_time = (1 * time)/ 3600
+            inverted_time = (-1 * time)/ 3600
             slope = temp_change / inverted_time
             data_obj["slope"] = slope     
             #refactor for find or create type deal
