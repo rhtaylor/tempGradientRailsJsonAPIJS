@@ -433,15 +433,18 @@ class FetchData {
             }).then(function (data) { 
                 
                 const success = document.createElement("div")
-                success.setAttribute("id", "success");
+                success.setAttribute("id", "success"); 
+                
                 const p = document.createElement("p");
                 p.innerText = "Your city is now being tracked by Boiling Forest!" 
                 success.appendChild(p)
                 main.appendChild(success) 
                 FetchData.fetchCityData();
                 setTimeout(function(){ 
-                    main.removeChild(success)
-                    FetchData.postData()}, 4000);
+                    main.removeChild(success) 
+                    //added line 446
+                    main.removeChild(cityForm)
+                    FetchData.postData()}, 3000);
             })
     }
 

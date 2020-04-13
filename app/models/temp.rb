@@ -76,7 +76,7 @@ class Temp < ApplicationRecord
            
             #=> this is degrees/hr 
             data_obj["slope"] 
-            inverted_time = (-1 * time)/ 3600
+            inverted_time = (1 * time)/ 3600
             slope = temp_change / inverted_time
             data_obj["slope"] = slope     
             #refactor for find or create type deal
