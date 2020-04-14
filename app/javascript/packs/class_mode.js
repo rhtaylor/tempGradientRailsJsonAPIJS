@@ -1,3 +1,5 @@
+
+
 const BASE_URL = "http://localhost:3000/cities.json"
 const POST_BASE_URL = "http://localhost:3000/cities/"
 const TEMP_URL = "http://localhost:3000/cities/temps/diff.json" 
@@ -21,11 +23,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 }); 
 
-class DOMWorker {
+class DOMWorker { 
+    
     constructor() {
 
-    }
-    static about() { 
+    } 
+    
+
+    static about() {  
+         
+        debugger
         if (document.getElementById("fetched")){
         main.removeChild(document.getElementById("fetched"));
         }
@@ -159,8 +166,9 @@ class DOMWorker {
             subDiv.setAttribute("class", "white") 
             subDiv.setAttribute("id", globalWarming["city"].name); 
              
-                
+                debugger
             const h2 = document.querySelector(`.${globalWarming["city"].name}`) || document.createElement("h2"); 
+            debugger
             h2.setAttribute("class", globalWarming["city"].name);
             h2.innerText = globalWarming["city"].name;  
             
@@ -244,17 +252,19 @@ class FetchData {
                 
                 idName = {}
                 idName["name"] = obj.name
-                idName["id"] = obj.id
+                idName["id"] = obj.id 
+                
                 return idName
             });
             FetchData.cityObjArray = cityArray.map(city => {
+               
+                return city = new City(city.id, null, city.name )
+               
                 
-                return city = new City(city.name, city.id)
-
             });
 
             const fetchURLArray = FetchData.cityObjArray.map(cityObj => cityObj.fetchURL); 
-            
+            debugger
             FetchData.Superresponse = []
             return dataFromFetch = fetchURLArray.map(function (url, i) { 
                 
@@ -382,21 +392,20 @@ class FetchData {
        const input = document.getElementById("input");  
        let city = input.value  
        sanitizedCity = city.replace(/=/, "") 
-       let x = sanitizedCity.match(/^[a-z]/); 
-        if(x){
-             noCaseIssues = sanitizedCity.replace(/^[a-z]/, x[0].toUpperCase())
-            let inputCheckt = noCaseIssues.replace(/\s+/, "&")  } 
-       else { 
-           inputCheckt = sanitizedCity.replace(/\s+/, "&")
-       }  
+       debugger
+       let x = sanitizedCity.match(/^[a-z]/) || sanitizedCity
+       let noCaseIssues = sanitizedCity.replace(/^[a-z]/, x[0].toUpperCase()) 
+       let inputCheck = noCaseIssues.replace(/\s+/, "&")  
        
-        let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheckt},us&units=imperial&APPID=${gon.key}`
+        
        
+        let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheck},us&units=imperial&APPID=${gon.key}`
+       debugger
        fetch(fetchURL).then( res =>{
-            if(res.status === 200){ 
-                  
-                let cityNew = new City(name = null, id = null, fetchURL = res.url) 
-                
+            if(res.status === 200){  
+                debugger
+                let cityNew = new City(id = null, fetchURL = res.url, name = null) 
+                debugger
                 FetchData.addCityToMyDB(cityNew)
                 return res.json() 
              } else if ( res.status === 404){  
@@ -442,7 +451,7 @@ class FetchData {
                 FetchData.fetchCityData();
                 setTimeout(function(){ 
                     main.removeChild(success) 
-                    //added line 446
+                   
                     main.removeChild(cityForm)
                     FetchData.postData()}, 3000);
             })
@@ -455,16 +464,30 @@ class FetchData {
 
 
 
-
-
 class City {
-    constructor(name, id, fetchURL) {
-        this.name = name
+    constructor(id, fetchURL, name) {
+        
         this.id = id
         this.fetchURL = fetchURL || `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=${gon.key}`
+        this.name = name || this.setName(name)
+    }
+
+    setName(name){
+        if (name && name.match(/\w+\W\w+/)){
+            //this will never run as  if name exists it will be set before 
+                return name 
+        } 
+        else 
+        {  
+               let parsed = this.fetchURL.match(/=\w+\W\w+,|=\w+,/);  
+               return  parsed[0].slice(1, parsed[0].length - 1)
+
+        }
     }
 
 }
+
+
 
 
 //this is an epoc converter
