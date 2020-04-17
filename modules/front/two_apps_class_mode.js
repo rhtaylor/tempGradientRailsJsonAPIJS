@@ -153,8 +153,17 @@ class DOMWorker {
 
         main.appendChild(div);
     }
-    static putInDomminos(arg) {
+    static putInDomminos(arg) { 
         
+        let sorted = arg.sort((a, b) => function (a, b) {
+                if (a["city"].name < b["city"].name) { 
+                     return -1
+                } else if (a["city"].name == a["city"].name){
+                      return  0
+                } else {
+                    return 1
+                } })
+
         if (document.getElementById("fetched")) {
             main.removeChild(document.getElementById("fetched"))
         }
