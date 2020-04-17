@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     FetchData.fetchCityData();
     FetchData.timeIntervalCallback();
     DOMWorker.about(); 
-    setTimeout(FetchData.postData, 6000)
+   
     document.addEventListener("click", function (e) {
         e.preventDefault()
         //add fetching notice
@@ -160,21 +160,20 @@ class DOMWorker {
         }
         const fetched = document.getElementById("fetched") || document.createElement("div");
         fetched.setAttribute("id", "fetched");
-        arg.map((globalWarming) => {
-            
-            const subDiv = document.getElementById(globalWarming["city"].name) || document.createElement("div");
+        arg.forEach((globalWarming) => {
+            const subDiv = document.getElementById(`${globalWarming["city"].name + globalWarming["city"].id}`) || document.createElement("div");
             subDiv.setAttribute("class", "white")
-            subDiv.setAttribute("id", globalWarming["city"].name);
-
+            subDiv.setAttribute("id", `${globalWarming["city"].name + globalWarming["city"].id}`);
+             
             
-            const h2 = document.querySelector(`.${globalWarming["city"].name}`) || document.createElement("h2");
-            
-            h2.setAttribute("class", globalWarming["city"].name);
+            const h2 = document.getElementById(`${globalWarming["city"].id + globalWarming["city"].name}`) || document.createElement("h2");
+             
+            h2.setAttribute("id", globalWarming["city"].id + globalWarming["city"].name);
             h2.innerText = globalWarming["city"].name;
-
+            
             if (document.getElementById(`${globalWarming["info"].slope}`)) {
                 let x = document.getElementById(`${globalWarming["info"].slope}`)
-
+                
                 y = x.parentElement
                 y.removeChild(x);
             }
@@ -183,17 +182,21 @@ class DOMWorker {
                 let parentEle = ele.parentElement;
                 parentEle.removeChild(ele);
             }
-            globalWarming["info"]["city_id"]
-            const h3 = document.getElementById(`${globalWarming["city"].id}`) || document.createElement("h3")
+            
+            const h3 = document.getElementById(`${globalWarming["city"].id}`) || document.createElement("h3") 
+            
             h3.setAttribute("id", globalWarming["city"].id)
-            h3.innerText = "Slope (rate degrees/hr)";
-            const h42 = document.getElementById(`${globalWarming["city"].name + globalWarming["city"].id}`) || document.createElement("h4");
-            h42.setAttribute("id", globalWarming["city"].name + globalWarming["city"].id)
-            h42.innerText = globalWarming["info"]["slope"]
+            h3.innerText = "Slope (rate degrees/hr)"; 
+            
+            const h42 = document.getElementById(`${globalWarming["city"].name + globalWarming["city"].id + globalWarming["city"].id}`) || document.createElement("h4");
+            h42.setAttribute("id", globalWarming["city"].name + globalWarming["city"].id + globalWarming["city"].id)
+            h42.innerText = globalWarming["info"]["slope"] 
+            
             subDiv.appendChild(h2);
             subDiv.appendChild(h3);
-            subDiv.appendChild(h42);
-            fetched.appendChild(subDiv)
+            subDiv.appendChild(h42); 
+            
+            fetched.appendChild(subDiv) 
             main.appendChild(fetched);
         })
 
@@ -377,8 +380,9 @@ class FetchData {
         
         //fetching This Apps rails json API
         fetch(TEMP_URL).then(res => res.json()).then(function (data) {
+           
+                DOMWorker.putInDomminos(data) 
         
-            DOMWorker.putInDomminos(data)
         });
     }
 
@@ -393,7 +397,7 @@ class FetchData {
             pause.innerText = "pause ||"
             //interval will be set to about 12 hours in production 
             //or 43,200,000 ms
-           interval = setInterval(callFunctions, 60000) 
+           interval = setInterval(callFunctions, 600000) 
             function callFunctions(){ 
                 FetchData.fetchCityData();
                 setTimeout(FetchData.postData, 2000); 

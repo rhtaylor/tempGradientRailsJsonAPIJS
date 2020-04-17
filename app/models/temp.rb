@@ -12,21 +12,25 @@ class Temp < ApplicationRecord
       
       #Temp.where("created_at::date = ?", "march 1 2020".to_date) 
       #these records are looking good; i only have until 1300 in db so cannot tell after that 
-      #created between 12 pm and 4 pm
-      @afternoon = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
-            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(120);   
+      #created between 12 pm and 4 pm below 
+        #@afternoon_for_review = Temp.where("created_at BETWEEN 
+         #   date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
+         #   date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(33);  
+         # below are between 5 and 7 pm  
+      @afternoon_for_review = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '24 hour'  AND 
+            date_trunc('day', created_at) + interval '1 day' - interval '21 hour' ").last(20);   
       #created between 2300pm and 3 am
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '19' hour  AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(120);
+            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(20);
      
     @master_array = [] 
     
      
     #=> creating out of the instances of Temp for use 
-    #@test is used in place of @afternoon as I have zero records made for the PM shift.  
-      @afternoon.map do |temp2|
+    #@test is used in place of @afternoon_for_review as I have zero records made for the PM shift.  
+      @afternoon_for_review.map do |temp2|
      
          
         data_afternoon_obj = {} 
@@ -76,7 +80,7 @@ class Temp < ApplicationRecord
            
             #=> this is degrees/hr 
             data_obj["slope"] 
-            inverted_time = (1 * time)/ 3600
+            inverted_time = (-1 * time)/ 3600
             slope = temp_change / inverted_time
             data_obj["slope"] = slope     
             #refactor for find or create type deal
@@ -89,7 +93,7 @@ class Temp < ApplicationRecord
           
            
          
-          json = WarmingTrackerSerializer.new(record_for_serialization).serialized_json 
+    json = WarmingTrackerSerializer.new(record_for_serialization).serialized_json 
     @data_array.push({ "city": record_for_serialization.city , "info": record_for_serialization }) 
       
     #@data_array.push(json); 

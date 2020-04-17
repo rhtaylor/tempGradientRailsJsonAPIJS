@@ -3,10 +3,10 @@ class City {
 
         this.id = id
         this.fetchURL = fetchURL || `api.openweathermap.org/data/2.5/weather?q=${name},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
-        this.name = name || this.setName(name)
+        this.name = name || this.setGetName(name)
     }
-
-    setName(name) {
+    //not using set or get because it's more code to write two methods vs one
+    setGetName(name) {
         if (name && name.match(/\w+\W\w+/)) {
             //this will never run as  if name exists it will be set before 
             return name

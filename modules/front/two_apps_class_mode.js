@@ -160,16 +160,15 @@ class DOMWorker {
         }
         const fetched = document.getElementById("fetched") || document.createElement("div");
         fetched.setAttribute("id", "fetched");
-        arg.map((globalWarming) => {
-            
-            const subDiv = document.getElementById(globalWarming["city"].name) || document.createElement("div");
+        arg.forEach((globalWarming) => {
+            const subDiv = document.getElementById(`${globalWarming["city"].name + globalWarming["city"].id}`) || document.createElement("div");
             subDiv.setAttribute("class", "white")
-            subDiv.setAttribute("id", globalWarming["city"].name);
+            subDiv.setAttribute("id", `${globalWarming["city"].name + globalWarming["city"].id}`);
 
-            
-            const h2 = document.querySelector(`.${globalWarming["city"].name}`) || document.createElement("h2");
-            
-            h2.setAttribute("class", globalWarming["city"].name);
+
+            const h2 = document.getElementById(`${globalWarming["city"].id + globalWarming["city"].name}`) || document.createElement("h2");
+
+            h2.setAttribute("id", globalWarming["city"].id + globalWarming["city"].name);
             h2.innerText = globalWarming["city"].name;
 
             if (document.getElementById(`${globalWarming["info"].slope}`)) {
@@ -183,22 +182,26 @@ class DOMWorker {
                 let parentEle = ele.parentElement;
                 parentEle.removeChild(ele);
             }
-            globalWarming["info"]["city_id"]
+
             const h3 = document.getElementById(`${globalWarming["city"].id}`) || document.createElement("h3")
+
             h3.setAttribute("id", globalWarming["city"].id)
             h3.innerText = "Slope (rate degrees/hr)";
-            const h42 = document.getElementById(`${globalWarming["city"].name + globalWarming["city"].id}`) || document.createElement("h4");
-            h42.setAttribute("id", globalWarming["city"].name + globalWarming["city"].id)
+
+            const h42 = document.getElementById(`${globalWarming["city"].name + globalWarming["city"].id + globalWarming["city"].id}`) || document.createElement("h4");
+            h42.setAttribute("id", globalWarming["city"].name + globalWarming["city"].id + globalWarming["city"].id)
             h42.innerText = globalWarming["info"]["slope"]
+
             subDiv.appendChild(h2);
             subDiv.appendChild(h3);
             subDiv.appendChild(h42);
+
             fetched.appendChild(subDiv)
             main.appendChild(fetched);
         })
 
     }
-    static pickCity() {
+    static pickCity(){
         if (document.getElementById("fetched")) {
             const main = document.getElementById("main")
             const fetched = document.getElementById("fetched")
