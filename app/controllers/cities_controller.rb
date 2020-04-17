@@ -1,24 +1,24 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [ :show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token  
-  before_action :assign_env_variables
-
-  def assign_env_variables
-    gon.key = ENV["MYAPIKEY"]
-  end 
   
-   
-
    def index 
    @all = City.all_in_json  
    @alll = City.all
    respond_to do |format|
-      format.html { render :index }
+      format.html { render 'cities/index' }
       
       format.json { render json: @alll }
     end
    end  
-   
+
+   def javaScript 
+      respond_to do |format|
+       format.js { render 'packs/city_mode.js' }
+      end
+   end
+
+
 
   # GET /cities/1
   # GET /cities/1.json

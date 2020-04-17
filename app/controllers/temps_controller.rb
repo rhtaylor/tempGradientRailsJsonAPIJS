@@ -17,7 +17,6 @@ class TempsController < ApplicationController
 
   # GET /temps/new
   def new 
-    
     @temp = Temp.new
   end
 
@@ -69,7 +68,8 @@ class TempsController < ApplicationController
   end
  
   def diff 
-      x = Temp.calculate_city_temp_drop 
+      x = Temp.calculate_city_temp_drop  
+      binding.pry
       render json: x
   end
 

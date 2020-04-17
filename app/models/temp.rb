@@ -15,11 +15,11 @@ class Temp < ApplicationRecord
       #created between 12 pm and 4 pm
       @afternoon = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
-            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(25);   
-      #created between 0000 and 3 am
+            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(120);   
+      #created between 2300pm and 3 am
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '19' hour  AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(25);
+            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(120);
      
     @master_array = [] 
     
@@ -63,7 +63,7 @@ class Temp < ApplicationRecord
           #=> roger, what do you think I should do here? O^2. I hate it. 
       @abc.map do |objectday| 
         @abc.map do |objectnight|  
-          #objectday and objectnight are criss crossing and mixing up.  
+          #objectday and objectnight are criss crossing and mixing up. This logic gate should ensure the proper dates are being comparied.  
           
           if objectday["temp_city"] === objectnight["temp_city"]  && (objectday["created_at"].hour - objectnight["created_at"].hour > 0 ) && (objectday["created_at"].day + 1 == objectnight["created_at"].day )
            
