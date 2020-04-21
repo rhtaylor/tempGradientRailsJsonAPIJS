@@ -38,7 +38,7 @@ class CitiesController < ApplicationController
   # POST /cities
   # POST /cities.json
   def create 
-   
+  
     @city = City.new(city_params)
       if @city.save!
          render json: @city 

@@ -69,7 +69,7 @@ class TempsController < ApplicationController
  
   def diff 
       x = Temp.calculate_city_temp_drop  
-      binding.pry
+     
       render json: x
   end
 
@@ -81,6 +81,6 @@ class TempsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def temp_params
-      params.require(:temp).permit(:date, :sunset, :current_temp, :temp_high, :temp_mid, :temp_low, :city_id,:sunset_datetime,:id)
+      params.require(:temp).permit(:date, :sunset, :city, :fetchURL, :current_temp, :temp_high, :temp_mid, :temp_low, :city_id,:sunset_datetime,:id)
     end
 end

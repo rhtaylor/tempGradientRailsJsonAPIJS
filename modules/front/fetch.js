@@ -24,17 +24,18 @@ class FetchData {
                 return idName
             });
             FetchData.cityObjArray = cityArray.map(city => {
-
+                
                 return city = new City(city.id, null, city.name)
 
 
             });
-
+            let dataFromFetch;
             const fetchURLArray = FetchData.cityObjArray.map(cityObj => cityObj.fetchURL);
 
-            FetchData.Superresponse = []
+            FetchData.Superresponse = [] 
+            
             return dataFromFetch = fetchURLArray.map(function (url, i) {
-
+                
                 let rawUrl = url.replace(/['"]+/g, '');
                 let better = "http://" + rawUrl
 
@@ -48,7 +49,7 @@ class FetchData {
                 return fetch(better).then(res => res.json())
 
                     .then(function (json) {
-
+                         //west coast is maybe lon -119 to lon -110 above -100(texas) and is east coast -100 to -70
                         console.log(json)
                         const dataObj = {}
                         dataObj["city"] = json.name
@@ -160,8 +161,8 @@ class FetchData {
         } else {
             pause.innerText = "pause ||"
             //interval will be set to about 12 hours in production 
-            //or 43,200,000 ms
-            this.interval = setInterval(callFunctions, 60000)
+            //or 43,200,000 ms 3600000 == 4 hours
+            this.interval = setInterval(callFunctions, 600000)
             function callFunctions() {
                 FetchData.fetchCityData();
                 setTimeout(FetchData.postData, 2000);
@@ -175,22 +176,24 @@ class FetchData {
     static searchForCity() {
         const input = document.getElementById("input");
         let city = input.value
-        sanitizedCity = city.replace(/=/, "")
+        let sanitizedCity = city.replace(/=/, "")
 
         let x = sanitizedCity.match(/^[a-z]/) || sanitizedCity
         let noCaseIssues = sanitizedCity.replace(/^[a-z]/, x[0].toUpperCase())
         let inputCheck = noCaseIssues.replace(/\s+/, "&")
 
-
+        
 
         let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheck},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
 
-        fetch(fetchURL).then(res => {
+        fetch(fetchURL).then(res => { 
+
             if (res.status === 200) {
-
-                let cityNew = new City(id = null, fetchURL = res.url, name = null)
-
-                FetchData.addCityToMyDB(cityNew)
+             
+                let url = res.url 
+                 
+                let city = FetchData.cityFactory(res);
+                FetchData.addCityToMyDB( city )
                 return res.json()
             } else if (res.status === 404) {
                 alert("City Not Found! Check spelling or try a different city.")
@@ -200,17 +203,26 @@ class FetchData {
             .catch(function (response) {
                 alert("Try later: Could not connect")
             })
+        
+   
 
 
-
-
+    } 
+    static cityFactory(res){ 
+        let url = res.url
+        let id = null 
+        let name = null
+        let newCity; 
+        
+        newCity = (new City(id, url, name) )
+        return newCity
     }
     static addCityToMyDB(arg) {
 
 
-        obj = { fetchURL: arg.fetchURL }
+        let obj = { fetchURL: arg.fetchURL }
 
-        const postObjOptions = {
+        let postObjOptions = {
             method: 'post',
             credentials: 'same-origin',
             headers: {

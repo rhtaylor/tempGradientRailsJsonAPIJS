@@ -13,17 +13,17 @@ class Temp < ApplicationRecord
       #Temp.where("created_at::date = ?", "march 1 2020".to_date) 
       #these records are looking good; i only have until 1300 in db so cannot tell after that 
       #created between 12 pm and 4 pm below 
-        #@afternoon_for_review = Temp.where("created_at BETWEEN 
-         #   date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
-         #   date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").last(33);  
+        @afternoon_for_review = Temp.where("created_at BETWEEN 
+            date_trunc('day', created_at) + interval '1 day' - interval '6 hour'  AND 
+            date_trunc('day', created_at) + interval '1 day' + interval '8 hour' ").first(80);  
          # below are between 5 and 7 pm  
-      @afternoon_for_review = Temp.where("created_at BETWEEN 
-            date_trunc('day', created_at) + interval '1 day' - interval '24 hour'  AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '21 hour' ").last(20);   
+      # @afternoon_for_review = Temp.where("created_at BETWEEN 
+      #      date_trunc('day', created_at) + interval '1 day' - interval '24 hour'  AND 
+      #      date_trunc('day', created_at) + interval '1 day' - interval '21 hour' ").last(15);   
       #created between 2300pm and 3 am
       @overnight = Temp.where("created_at BETWEEN 
             date_trunc('day', created_at) + interval '1 day' - interval '19' hour  AND 
-            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").last(20);
+            date_trunc('day', created_at) + interval '1 day' - interval '10' hour ").first(80);
      
     @master_array = [] 
     
@@ -58,7 +58,7 @@ class Temp < ApplicationRecord
               (a["created_at"] <=> b["created_at"]) 
           end 
           x
-      end
+      end 
         
      
       @data_array = [] 

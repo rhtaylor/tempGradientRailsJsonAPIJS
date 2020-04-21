@@ -397,7 +397,7 @@ class FetchData {
             pause.innerText = "pause ||"
             //interval will be set to about 12 hours in production 
             //or 43,200,000 ms
-           interval = setInterval(callFunctions, 60000) 
+           interval = setInterval(callFunctions, 3600000) 
             function callFunctions(){ 
                 FetchData.fetchCityData();
                 setTimeout(FetchData.postData, 2000); 
