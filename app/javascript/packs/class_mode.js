@@ -2,9 +2,10 @@ const BASE_URL = "http://localhost:3000/cities.json"
 const POST_BASE_URL = "http://localhost:3000/cities/"
 const TEMP_URL = "http://localhost:3000/cities/temps/diff.json"
 const NEW_CITY_URL = "http://localhost:3000/cities/create"
-
-
-document.addEventListener("DOMContentLoaded", function (event) {
+KEY = gon.key
+//KEY can be used to replace API key
+document.addEventListener("DOMContentLoaded", function (event) { 
+    
     DOMWorker.buildDOM();
     FetchData.fetchCityData();
     FetchData.timeIntervalCallback();

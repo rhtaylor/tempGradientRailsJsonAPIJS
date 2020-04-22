@@ -1,8 +1,12 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [ :show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token  
-  
-   def index 
+  def assign_env_variables
+    gon.key = ENV["MYAPIKEY"] 
+  end
+
+   def index  
+     gon.key = ENV["MYAPIKEY"]
    @all = City.all_in_json  
    @alll = City.all
    respond_to do |format|

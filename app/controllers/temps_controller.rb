@@ -1,12 +1,17 @@
 class TempsController < ApplicationController
   before_action :set_temp, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token 
-  
+  before_action :assign_env_variables
 
+  def assign_env_variables
+    gon.key = ENV["MYAPIKEY"] 
+    
+  end
+  
   # GET /temps
   # GET /temps.json
   def index
-  
+    gon.key = ENV["MYAPIKEY"]  
     @temps = Temp.all
   end
 
