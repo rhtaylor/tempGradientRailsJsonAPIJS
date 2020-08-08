@@ -4,7 +4,7 @@ class FetchData {
 
     //Interval will be set to 14,400,000 ms in production which is 6 hours
     static fetchCityData() {
-        console.log("fetching data")
+       
         const newDiv = document.getElementById("fetched") || document.createElement("div");
         newDiv.setAttribute("id", "fetched")
 
@@ -39,7 +39,7 @@ class FetchData {
                 let rawUrl = url.replace(/['"]+/g, '');
                 let better = "http://" + rawUrl
 
-                console.log(better)
+               
                 const response = []
                 //added to track the city of the data 
                 //programmatically taking city names from this app API and turing them into fetchable
@@ -50,7 +50,7 @@ class FetchData {
 
                     .then(function (json) {
                          //west coast is maybe lon -119 to lon -110 above -100(texas) and is east coast -100 to -70
-                        console.log(json)
+                       
                         const dataObj = {}
                         dataObj["city"] = json.name
                         dataObj["current_temp"] = json.main.temp
@@ -62,7 +62,7 @@ class FetchData {
                         response.push(dataObj)
                         FetchData.Superresponse.push(dataObj)
                         //used to store promise data to let resolve  
-                        console.log(dataObj);
+                       
 
                         return dataObj
                     })

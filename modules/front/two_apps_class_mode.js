@@ -80,7 +80,7 @@ class DOMWorker {
         main.appendChild(about);
     }
     static buildDOM() {
-        console.log("buildDOM is running")
+       
         const main = document.getElementById("main");
         const newDiv = document.getElementById("fetched") || document.createElement("div");
         newDiv.setAttribute("id", "fetched");
