@@ -80,12 +80,12 @@ test:
 #
 # You can use this database configuration with:
 #
-   production:
-     url: <%= ENV['DATABASE_URL'] %>
+  #  production:
+  #    url: <%= ENV['DATABASE_URL'] %>
 
-# production:
-#   <<: *default 
-#   adapter: postgresql
-#    database: tempGradientRailsJsonAPIJS_production
-#    username: tempGradientRailsJsonAPIJS
-#   password: <%= ENV['TEMPGRADIENTRAILSJSONAPIJS_DATABASE_PASSWORD'] %>
+ production:
+   <<: *default 
+   adapter: postgresql
+    database: <%= ENV['DATABASE_URL'] %>
+  # username: tempGradientRailsJsonAPIJS
+  #  password: <%= ENV['TEMPGRADIENTRAILSJSONAPIJS_DATABASE_PASSWORD'] %>
