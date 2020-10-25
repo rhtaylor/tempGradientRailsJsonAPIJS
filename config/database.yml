@@ -24,11 +24,11 @@ default: &default
 development:
   <<: *default
   database: tempGradientRailsJsonAPIJS_development
-  username: postgres
+  #username: postgres
 
-  password: Rd0gwashere
+  #assword: Rd0gwashere
   
-  host: localhost 
+  #host: localhost 
   
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
