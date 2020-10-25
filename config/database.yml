@@ -87,5 +87,5 @@ test:
    <<: *default 
     adapter: postgresql
     database: <%= ENV['DATABASE_URL'] %>
-    username: tempGradientRailsJsonAPIJS
+    # username: tempGradientRailsJsonAPIJS
     password: <%= ENV['TEMPGRADIENTRAILSJSONAPIJS_DATABASE_PASSWORD'] %>
