@@ -475,7 +475,7 @@ class FetchData {
 
                     main.removeChild(cityForm)
                     FetchData.postData()
-                }, 3000);
+                }, 5000);
             })
     }
 

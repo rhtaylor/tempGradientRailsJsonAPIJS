@@ -84,7 +84,8 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
+  <<: *default 
+  adapter: postgresql
   database: tempGradientRailsJsonAPIJS_production
   username: tempGradientRailsJsonAPIJS
   password: <%= ENV['TEMPGRADIENTRAILSJSONAPIJS_DATABASE_PASSWORD'] %>
