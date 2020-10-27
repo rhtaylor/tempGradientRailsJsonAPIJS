@@ -7,15 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 City.create([
-    {name: "Phoenix", region: "southwest", fetchURL: "http://api.openweathermap.org/data/2.5/weather?q=Phoenix,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
+    {name: "Phoenix", region: "southwest", fetchURL: "https://api.openweathermap.org/data/2.5/weather?q=Phoenix,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
 }, 
-    {name: "Columbus", region: "Midwest", fetchURL:  "http://api.openweathermap.org/data/2.5/weather?q=Columbus,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
+    {name: "Columbus", region: "Midwest", fetchURL:  "https://api.openweathermap.org/data/2.5/weather?q=Columbus,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
 },  
-    {name: "Boston", region: "east", fetchURL: "http://api.openweathermap.org/data/2.5/weather?q=Boston,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
+    {name: "Boston", region: "east", fetchURL: "https://api.openweathermap.org/data/2.5/weather?q=Boston,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
 }, 
-    {name: "Orlando", region: "southeast",  fetchURL: "http://api.openweathermap.org/data/2.5/weather?q=Orlando,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
+    {name: "Orlando", region: "southeast",  fetchURL: "https://api.openweathermap.org/data/2.5/weather?q=Orlando,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
 },
-    {name: "Seattle", region: "northwest", fetchURL: "http://api.openweathermap.org/data/2.5/weather?q=Seattle,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
+    {name: "Seattle", region: "northwest", fetchURL: "https://api.openweathermap.org/data/2.5/weather?q=Seattle,us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9"
 }
     
 ]);  
