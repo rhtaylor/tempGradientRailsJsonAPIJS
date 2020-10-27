@@ -63,7 +63,7 @@ class DOMWorker {
         p10 = document.createElement("p")
         p10.innerText = "This application aims to track this temperature change to ascertain if and to what degree this is happening."
         p11 = document.createElement("p");
-        p0.innerText = "APPLICATION IS SCHEDULED TO GET DATA EVERY 6 HOURS AND SAVE THEAT DATA"
+        p0.innerText = "APPLICATION IS SCHEDULED TO GET DATA EVERY 6 HOURS AND SAVE THAT DATA"
         about.appendChild(h2);
         about.appendChild(p0);
         about.appendChild(p);
