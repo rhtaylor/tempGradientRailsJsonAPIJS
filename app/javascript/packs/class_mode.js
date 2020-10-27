@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:3000/cities.json"
-const POST_BASE_URL = "http://localhost:3000/cities/"
+const BASE_URL = 'https://boiling-forest-global-warming.herokuapp.com/cities.json'
+const POST_BASE_URL = 'https://boiling-forest-global-warming.herokuapp.com/cities/'
 const TEMP_URL = "http://localhost:3000/cities/temps/diff.json"
 const NEW_CITY_URL = "http://localhost:3000/cities/create"
 KEY = gon.key
@@ -273,7 +273,7 @@ class FetchData {
             return dataFromFetch = fetchURLArray.map(function (url, i) {
 
                 let rawUrl = url.replace(/['"]+/g, '');
-                let better = "http://" + rawUrl
+                let better = "https://" + rawUrl
 
                 console.log(better)
                 const response = []
@@ -420,7 +420,7 @@ class FetchData {
 
 
 
-        let fetchURL = `http://api.openweathermap.org/data/2.5/weather?q=${inputCheck},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
+        let fetchURL = `https://api.openweathermap.org/data/2.5/weather?q=${inputCheck},us&units=imperial&APPID=fe2a775f427aa5fc92ce0379937b9ee9`
         
         fetch(fetchURL).then(res => {
             if (res.status === 200) {
