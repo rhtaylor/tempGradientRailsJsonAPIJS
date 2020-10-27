@@ -1,7 +1,7 @@
 const BASE_URL = 'https://boiling-forest-global-warming.herokuapp.com/cities.json'
 const POST_BASE_URL = 'https://boiling-forest-global-warming.herokuapp.com/cities/'
 const TEMP_URL = "http://localhost:3000/cities/temps/diff.json"
-const NEW_CITY_URL = "http://localhost:3000/cities/create"
+const NEW_CITY_URL = "NOT READY FOR USE", /*"http://localhost:3000/cities/create" */
 KEY = gon.key
 //KEY can be used to replace API key
 document.addEventListener("DOMContentLoaded", function (event) { 
