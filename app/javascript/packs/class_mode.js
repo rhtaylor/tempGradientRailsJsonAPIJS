@@ -93,10 +93,11 @@ class DOMWorker {
         button.setAttribute("class", "button")
         button.innerText = "Display Current Temps"
         const button2 = document.createElement("button");
-        const buttonPause = document.createElement("button");
-        const addCityButton = document.createElement("button");
+        const buttonPause = document.createElement("button"); 
+        //addCityButton is not appropriate for the public and was removed
+        /*const addCityButton = document.createElement("button");
         addCityButton.setAttribute("id", "pickCity");
-        addCityButton.innerText = "Add a City to Track"
+        addCityButton.innerText = "Add a City to Track" */
         buttonPause.setAttribute("id", "pause");
         buttonPause.innerText = "start >>";
         button2.innerText = "Display Temp Decrease Rate ";
@@ -105,7 +106,7 @@ class DOMWorker {
         main.appendChild(aboutButton);
         main.appendChild(button);
         main.appendChild(button2);
-        main.appendChild(addCityButton);
+        //main.appendChild(addCityButton);
         main.appendChild(buttonPause);
         main.appendChild(newDiv);
     }
