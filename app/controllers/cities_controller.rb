@@ -11,7 +11,7 @@ class CitiesController < ApplicationController
    @alll = City.all
    respond_to do |format|
       format.html { render 'cities/index' }
-      
+      format.csv { send_data @alll.to_csv }
       format.json { render json: @alll }
     end
    end  
@@ -23,7 +23,7 @@ class CitiesController < ApplicationController
    end
 
 
-
+  
   # GET /cities/1
   # GET /cities/1.json
   def show

@@ -75,6 +75,7 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
+    csv (3.0.4)
     date (3.0.0)
     dotenv (2.7.5)
     dotenv-rails (2.7.5)
@@ -228,6 +229,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  csv (~> 3.0)
   date
   dotenv-rails
   fast_jsonapi

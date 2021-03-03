@@ -21,5 +21,16 @@ class City < ApplicationRecord
               end  
             @returnValue.to_json 
         
-    end
+    end 
+
+    def self.to_csv 
+      attributes = %w{name region fetchURL} 
+      CSV.generate(headers: true) do |csv| 
+         csv <<  attributes
+         
+         all.each do |city|
+        csv << city.attributes.values_at(*attributes) 
+         end
+      end
+   end 
 end
