@@ -47,11 +47,13 @@ class DOMWorker {
         const p4 = document.createElement("p");
         const p5 = document.createElement("p");
         const p6 = document.createElement("p");
-        const p0 = document.createElement("p");
+        const p0 = document.createElement("p"); 
+        const p111 = document.createElement("p");
         p.innerText = "Boiling Forest is brought to you from the mind of a conscientious citizen."
         p2.innerText = "Randall Taylor graduated from the University of Arizona with  BS in Physiology, minor in Biochemistry,"
         p3.innerText = "and second minor in business administration. With a strong interest in science he always had a full "
-        p4.innerText = "mind of scientific and engineering ideas."
+        p4.innerText = "mind of scientific and engineering ideas." 
+        p111.innerText = "Randall eventually became a software engineer. "
         const abstract = document.createElement("h2");
         abstract.innerText = "ABSTRACT:"
         const p7 = document.createElement("p");
@@ -70,7 +72,8 @@ class DOMWorker {
         about.appendChild(p2);
         about.appendChild(p3);
         about.appendChild(p4);
-        about.appendChild(p5);
+        about.appendChild(p5); 
+        about.appendChild(p111);
         about.appendChild(p6);
         about.appendChild(abstract)
         about.appendChild(p7);
