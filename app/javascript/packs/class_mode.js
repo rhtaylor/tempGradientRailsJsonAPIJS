@@ -52,7 +52,7 @@ class DOMWorker {
         p.innerText = "Boiling Forest is brought to you from the mind of a conscientious citizen."
         p2.innerText = "Randall Taylor graduated from the University of Arizona with  BS in Physiology, minor in Biochemistry,"
         p3.innerText = "and second minor in business administration. With a strong interest in science he always had a full "
-        p4.innerText = "mind of scientific and engineering ideas. Please help me debug this errro?" 
+        p4.innerText = "mind of scientific and engineering ideas. Please help me debug this errro? OMG DO I WANT THIS JOB>??" 
         p111.innerText = "Randall eventually became a software engineer and web developer. He plans to travel and have a family too."
         const abstract = document.createElement("h2");
         abstract.innerText = "ABSTRACT:"
