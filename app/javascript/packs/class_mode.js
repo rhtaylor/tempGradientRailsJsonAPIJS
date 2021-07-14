@@ -53,7 +53,7 @@ class DOMWorker {
         p2.innerText = "Randall Taylor graduated from the University of Arizona with  BS in Physiology, minor in Biochemistry,"
         p3.innerText = "and second minor in business administration. With a strong interest in science he always had a full "
         p4.innerText = "mind of scientific and engineering ideas. I think this will fix it!!" 
-        p111.innerText = "He is a web developer and plans to travel and have a family too."
+        p111.innerText = "He is a web developer and plans to travel and have a family too with a good woman."
         const abstract = document.createElement("h2");
         abstract.innerText = "ABSTRACT:"
         const p7 = document.createElement("p");
