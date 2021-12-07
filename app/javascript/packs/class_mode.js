@@ -52,7 +52,7 @@ class DOMWorker {
         p.innerText = "Boiling Forest is brought to you from the mind of a conscientious citizen."
         p2.innerText = "Randall Taylor graduated from the University of Arizona with  BS in Physiology, minor in Biochemistry,"
         p3.innerText = "and second minor in business administration. With a strong interest in science he always had a full "
-        p4.innerText = "mind of scientific and engineering ideas. I think this will fix it!!" 
+        p4.innerText = "mind of scientific and engineering ideas." 
         p111.innerText = "He is a web developer and plans to travel and have a family too with a good woman."
         const abstract = document.createElement("h2");
         abstract.innerText = "ABSTRACT:"
@@ -323,7 +323,7 @@ class FetchData {
             counter.setAttribute("id", "counter")
             counter.innerText = this.count 
             let main = document.getElementById("main");
-        main.appendChild(counter);
+       
     }
     static postData() {
         
