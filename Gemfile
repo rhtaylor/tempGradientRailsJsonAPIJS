@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '>= 3.1.0' 
 
+gem 'psych', '< 4'
+
 gem 'fast_jsonapi' 
 gem 'rack-cors' 
 gem 'dotenv-rails' 
